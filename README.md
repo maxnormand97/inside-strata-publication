@@ -1,58 +1,61 @@
-# Inside Strata Theme
+# Inside Strata — WordPress Theme
 
-This repository contains the WordPress theme for the Inside Strata project. The repository is intentionally limited to the theme directory (`wp-content/themes/inside-strata-theme`) and a few supporting files. All WordPress core files and other content are ignored; only deliverables related to the theme are tracked.
+A custom WordPress theme for the Inside Strata news and publication site. Clean, responsive, editorial-style layout built with vanilla CSS — no frameworks.
 
----
+## Features
 
-## Project Brief
+- **Homepage hero grid** — 1 large featured article + 2 secondary articles
+- **Latest news grid** — 3-column responsive article cards
+- **Category spotlight** — Highlight posts from a specific category (e.g. "Industry News")
+- **Single article template** — Hero image, author/date meta, related articles
+- **Promo/ad slots** — Placeholder components for banner ads
+- **Newsletter section** — Mailchimp-ready signup block (`[mc4wp_form]` shortcode)
+- **Responsive layout** — CSS grid with mobile-first breakpoints
+- **Sticky header** with mobile hamburger nav
 
-*I am now essentially a contractor only working on this project; I am able to work remote doing this as I am not part of the core team anymore.*
+## Requirements
 
-### Inside Strata
+- WordPress 6.0+
+- PHP 7.4+
 
-A simple publishing platform to deliver news and promotional content. The theme is the only deliverable; WordPress will supply the CMS functionality. The goal is a clean, easy-to-use experience for the internal team to publish articles with advertising slots.
+## Installation
 
-Key requirements:
+1. Download or clone this repo into your WordPress themes directory:
+   ```
+   wp-content/themes/inside-strata-theme/
+   ```
+2. Activate the theme in **Appearance → Themes**
+3. Create a menu in **Appearance → Menus** and assign it to the "Primary Menu" location
 
-- **Easy-to-use CMS**
-  - A blog/news outlet where content can be created, edited, and deleted.
-  - Support for ad slots both on site pages and within articles.
-- **Publishing workflow**
-  - Ability to create and publish news articles quickly.
-  - CMS interfaces should be intuitive since the core team won't be managing code.
-- **Advertising**
-  - Ads need to be configurable and placed in site templates and inside post content.
-- **Design freedom**
-  - Creative flexibility for UI/UX; minimal design constraints from the brief.
-  - Look and feel can take inspiration from media publishers such as [Momentum Media](https://www.momentummedia.com.au/).
-- **Reference**
-  - Multiple brands and outlets are targeted; initial phase should focus on a straightforward article publishing and self-promotion platform.
+## Test Data
 
-### Deliverables
+A seed script is included to populate the site with sample articles, categories, and a navigation menu.
 
-- WordPress theme located at `wp-content/themes/inside-strata-theme`.
-- Documentation (this README) explaining repository structure and usage.
+1. Open `seed.php` and set `STRATA_SEED_ENABLED` to `true`
+2. Log in to WordPress admin
+3. Visit `http://your-site.local/wp-content/themes/inside-strata-theme/seed.php`
+4. Set `STRATA_SEED_ENABLED` back to `false` when done
 
-### Getting Started
+## Theme Structure
 
-1. **Local development**
-   - Install WordPress separately (outside this repo or via a different branch).
-   - Place this theme in `wp-content/themes/inside-strata-theme` and activate it.
-   - Develop and test theme features using standard WordPress tooling (WP CLI, etc.).
+```
+├── style.css           # All theme styles
+├── functions.php       # Theme setup, enqueues, image sizes
+├── header.php          # Site header and navigation
+├── footer.php          # Site footer
+├── front-page.php      # Homepage template
+├── single.php          # Single article template
+├── category.php        # Category archive template
+├── index.php           # Fallback template
+├── seed.php            # Test data seeder (disabled by default)
+└── js/
+    └── main.js         # Mobile menu toggle
+```
 
-2. **Publishing**
-   - Use WordPress admin to create posts and manage ad slots.
-   - Ads can be implemented using custom fields or widgets depending on needs.
+## Category Spotlight
 
-3. **Deployment**
-   - The theme folder is the only thing that needs to be pushed to production environments.
-   - Keep the repository private and share with stakeholders as needed.
+The homepage includes a category spotlight section that queries posts from a category with the slug `industry-news`. To add more spotlights, duplicate the spotlight block in `front-page.php` and change the category slug.
 
-### Notes
+## License
 
-- This repository tracks only the theme deliverable. WordPress core, plugins, uploads, and other files are ignored via `.gitignore`.
-- Feel free to create additional documentation or subfolders within the theme as development progresses.
-
----
-
-*Built by a former contractor/rails engineer looking to deliver a lightweight, maintainable WordPress theme for Inside Strata.*
+Private — Inside Strata / Cohabit Platforms.
