@@ -1,0 +1,42 @@
+# Restrict repository to theme deliverable only
+# ignore everything by default
+/*
+
+# keep git metadata and ignore file itself
+!.gitignore
+
+# allow the theme directory and its contents
+!wp-content/
+!wp-content/themes/
+!wp-content/themes/inside-strata-theme/
+!wp-content/themes/inside-strata-theme/**
+
+# other project artifacts you might want to keep (optional)
+!README.md
+!license.txt
+
+# keep local environment/IDE files (customize as needed)
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.#*
+
+# node/npm
+node_modules/
+package-lock.json
+yarn.lock
+
+# typical WP runtime drops that can be recreated
+wp-config.php
+wp-content/uploads/
+wp-content/backup/
+wp-content/upgrade/
+wp-content/cache/
+wp-content/plugins/*
+!wp-content/plugins/.gitkeep
+.env
+.env.local
