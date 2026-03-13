@@ -120,6 +120,47 @@
     <?php endif; ?>
 
 
+    <?php
+    /* =========================================================
+       SPONSORED POSTS / OUR BRANDS
+       ========================================================= */
+    include_once get_template_directory() . '/components/sponsored-card.php';
+
+    $sponsored_brands = array(
+        array(
+            'name'        => 'Cohabit',
+            'description' => 'Innovative co-living spaces designed for modern professionals seeking community and convenience.',
+            'logo'        => '', // Optional logo URL
+            'url'         => 'https://cohabit.com'
+        ),
+        array(
+            'name'        => 'Lannock',
+            'description' => 'Premium menswear and accessories crafted with timeless style and exceptional quality.',
+            'logo'        => '', // Optional logo URL
+            'url'         => 'https://lannock.com'
+        ),
+        array(
+            'name'        => 'Kerin Benson',
+            'description' => 'Contemporary fashion and lifestyle brand offering unique pieces for the discerning individual.',
+            'logo'        => '', // Optional logo URL
+            'url'         => 'https://kerinbenson.com'
+        )
+    );
+    ?>
+
+    <?php if ( ! empty( $sponsored_brands ) ) : ?>
+    <section class="sponsored-section">
+        <h2 class="section-heading">Our Brands</h2>
+        <p class="section-intro">Discover our curated selection of premium brands and partners that align with our commitment to quality and innovation.</p>
+        <div class="sponsored-grid">
+            <?php foreach ( $sponsored_brands as $brand ) : ?>
+                <?php render_sponsored_card( $brand ); ?>
+            <?php endforeach; ?>
+        </div>
+    </section>
+    <?php endif; ?>
+
+
     <!-- PROMO BANNER SLOT -->
     <div class="promo-slot">
         <p>Promotional Banner &mdash; Advertisement</p>
