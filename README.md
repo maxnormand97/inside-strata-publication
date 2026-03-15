@@ -1,6 +1,6 @@
-# Inside Strata — WordPress Theme
+# The Strata Review — WordPress Theme
 
-A custom WordPress theme for the Inside Strata news and publication site. Clean, responsive, editorial-style layout built with vanilla CSS — no frameworks.
+A custom WordPress theme for The Strata Review publication site. Clean, responsive, editorial-style layout built with vanilla CSS — no frameworks.
 
 ## Features
 
@@ -58,4 +58,4 @@ The homepage includes a category spotlight section that queries posts from a cat
 
 ## License
 
-Private — Inside Strata / Cohabit Platforms.
+Private — The Strata Review.

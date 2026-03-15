@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<h1>Inside Strata</h1>
+<h1>The Strata Review</h1>
 
 <p>Publication platform</p>
 

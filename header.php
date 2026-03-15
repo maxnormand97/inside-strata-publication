@@ -9,23 +9,33 @@
 <?php wp_body_open(); ?>
 
 <header class="site-header">
-    <div class="container">
+    <div class="container header-inner">
         <div class="site-branding">
-            <a href="<?php echo esc_url(home_url('/')); ?>">
-                <?php bloginfo('name'); ?>
+            <a class="brand-link" href="<?php echo esc_url(home_url('/')); ?>" aria-label="The Strata Review Home">
+                <?php 
+                $logo_path = get_template_directory() . '/assets/images/logo.png';
+                $logo_url  = get_template_directory_uri() . '/assets/images/logo.png';
+                if ( file_exists( $logo_path ) ) : ?>
+                    <img class="site-logo" src="<?php echo esc_url( $logo_url ); ?>" alt="The Strata Review" />
+                <?php else : ?>
+                    <span class="site-title">The Strata Review</span>
+                <?php endif; ?>
             </a>
         </div>
+
         <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
         </button>
-        <nav class="site-navigation" role="navigation" aria-label="Primary">
+
+        <nav class="site-navigation" role="navigation" aria-label="Primary menu">
             <?php
             wp_nav_menu(array(
                 'theme_location' => 'primary',
                 'container'      => false,
-                'fallback_cb'    => false,
+                'fallback_cb'    => 'wp_page_menu',
+                'menu_class'     => 'menu-items',
             ));
             ?>
         </nav>

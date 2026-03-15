@@ -1,6 +1,6 @@
 <?php
 /**
- * Inside Strata — Test Data Seeder
+ * The Strata Review — Test Data Seeder
  *
  * HOW TO USE:
  *   1. Set STRATA_SEED_ENABLED below to true
@@ -27,7 +27,7 @@ if ( ! is_user_logged_in() || ! current_user_can('manage_options') ) {
 }
 
 echo '<pre style="font-family:monospace; max-width:800px; margin:40px auto; line-height:1.8;">';
-echo "=== Inside Strata Seeder ===\n\n";
+echo "=== The Strata Review Seeder ===\n\n";
 
 // --------------------------------------------------
 // 1. CREATE CATEGORIES

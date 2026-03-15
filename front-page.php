@@ -178,7 +178,7 @@
     include_once get_template_directory() . '/components/newsletter-signup.php';
     render_newsletter_signup_section(array(
         'heading' => 'Subscribe for updates',
-        'text'    => 'Get the latest news and analysis from Inside Strata delivered straight to your inbox.',
+        'text'    => 'Get the latest news and analysis from The Strata Review delivered straight to your inbox.',
     ));
     ?>
 

@@ -1,6 +1,6 @@
 /*
-Theme Name: Inside Strata
-Author: Inside Strata
+Theme Name: The Strata Review
+Author: The Strata Review
 Version: 1.0
 */
 
@@ -21,10 +21,20 @@ html {
     scroll-behavior: smooth;
 }
 
+:root {
+    --brand: #113189;
+    --brand-dark: #0f276c;
+    --neutral: #1f1f2b;
+    --muted: #4f4f5c;
+    --surface: #ffffff;
+    --background: #f2f2f2;
+    --border: #e2e3f2;
+}
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
-    color: #1a1a1a;
-    background-color: #f7f7f8;
+    color: var(--neutral);
+    background-color: var(--background);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
 }
@@ -45,24 +55,30 @@ a {
    ============================================ */
 
 h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
     font-weight: 700;
-    line-height: 1.2;
-    color: #111;
+    line-height: 1.22;
+    color: #0e0f2f;
+    margin: 0;
 }
 
-h1 { font-size: 2.25rem; }
-h2 { font-size: 1.75rem; }
-h3 { font-size: 1.25rem; }
+h1 { font-size: clamp(1.8rem, 3vw, 3rem); }
+h2 { font-size: clamp(1.5rem, 2.2vw, 2.2rem); }
+h3 { font-size: clamp(1.2rem, 1.6vw, 1.5rem); }
+
+p, li, blockquote {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+    color: #23243b;
+}
 
 /* ============================================
    LAYOUT
    ============================================ */
 
 .container {
-    width: 100%;
-    max-width: 1200px;
+    width: min(100%, 1120px);
     margin: 0 auto;
-    padding: 0 1.25rem;
+    padding: 0 1rem;
 }
 
 .site-content {
@@ -75,45 +91,77 @@ h3 { font-size: 1.25rem; }
    ============================================ */
 
 .site-header {
-    background: #fff;
-    border-bottom: 3px solid #c8102e;
-    padding: 0.75rem 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0.8rem 0;
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
-.site-header .container {
+.header-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
 }
 
-.site-branding a {
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: #111;
-    text-transform: uppercase;
-}
-
-.site-navigation ul {
-    list-style: none;
+.site-branding {
     display: flex;
-    gap: 1.5rem;
+    align-items: center;
 }
 
-.site-navigation a {
-    font-size: 0.875rem;
-    font-weight: 600;
+.brand-link {
+    display: flex;
+    align-items: center;
+}
+
+.site-logo {
+    max-height: 54px;
+    width: auto;
+    display: block;
+}
+
+.site-title {
+    font-family: 'Merriweather', Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #0e102f;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: #333;
-    transition: color 0.2s;
 }
 
-.site-navigation a:hover {
-    color: #c8102e;
+.site-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.menu-items {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-items li {
+    margin: 0;
+}
+
+.menu-items a {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #1f2248;
+    transition: color 0.15s ease;
+}
+
+.menu-items a:hover {
+    color: var(--brand);
 }
 
 .menu-toggle {
@@ -128,9 +176,33 @@ h3 { font-size: 1.25rem; }
     display: block;
     width: 24px;
     height: 2px;
-    background: #111;
+    background: #1f2248;
     margin: 5px 0;
     transition: 0.3s;
+}
+
+@media (max-width: 900px) {
+    .header-inner {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .site-navigation {
+        width: 100%;
+        display: none;
+        margin-top: 0.5rem;
+    }
+    .site-navigation.active {
+        display: block;
+    }
+    .menu-items {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        padding: 0.3rem 0;
+    }
+    .menu-toggle {
+        display: inline-flex;
+    }
 }
 
 /* ============================================
@@ -138,14 +210,14 @@ h3 { font-size: 1.25rem; }
    ============================================ */
 
 .section-heading {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #111;
-    border-bottom: 3px solid #c8102e;
-    padding-bottom: 0.6rem;
-    margin-bottom: 1.5rem;
+    color: #191a3d;
+    border-bottom: 3px solid var(--brand);
+    padding-bottom: 0.55rem;
+    margin-bottom: 1.2rem;
 }
 
 /* ============================================
@@ -158,26 +230,26 @@ h3 { font-size: 1.25rem; }
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: #c8102e;
-    margin-bottom: 0.4rem;
-    transition: color 0.2s;
+    color: var(--brand-dark);
+    margin-bottom: 0.35rem;
+    transition: color 0.2s ease;
 }
 
 .article-category:hover {
-    color: #9b0c22;
+    color: var(--brand);
 }
 
 .article-category--badge {
-    background: #c8102e;
+    background: var(--brand);
     color: #fff;
     padding: 0.2rem 0.55rem;
     border-radius: 3px;
 }
 
 .article-category--badge:hover {
-    color: #fff;
-    background: #9b0c22;
+    background: #0d1f63;
 }
+
 
 /* ============================================
    HERO GRID  (1 large + 2 small)
@@ -360,12 +432,12 @@ h3 { font-size: 1.25rem; }
 }
 
 .article-card h3 a {
-    color: #111;
-    transition: color 0.2s;
+    color: #12152f;
+    transition: color 0.2s ease;
 }
 
 .article-card h3 a:hover {
-    color: #c8102e;
+    color: var(--brand);
 }
 
 .article-card .card-excerpt {
@@ -381,12 +453,12 @@ h3 { font-size: 1.25rem; }
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #c8102e;
-    transition: color 0.2s;
+    color: var(--brand);
+    transition: color 0.2s ease;
 }
 
 .article-card .read-more:hover {
-    color: #9b0c22;
+    color: #0f1f5f;
 }
 
 /* ============================================
@@ -394,24 +466,25 @@ h3 { font-size: 1.25rem; }
    ============================================ */
 
 .promo-slot {
-    background: #fff;
-    border: 2px dashed #d0d0d0;
-    border-radius: 6px;
-    padding: 2.5rem 2rem;
+    background: #ffffff;
+    border: 1px dashed #c8cde4;
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
     text-align: center;
-    margin-bottom: 3rem;
-    min-height: 120px;
+    margin-bottom: 2.5rem;
+    min-height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .promo-slot p {
-    color: #999;
-    font-size: 0.85rem;
+    color: #58637d;
+    font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.06em;
+    margin: 0;
 }
 
 /* ============================================
@@ -419,23 +492,23 @@ h3 { font-size: 1.25rem; }
    ============================================ */
 
 .newsletter-section {
-    background: #1a1a2e;
+    background: var(--brand);
     color: #fff;
     border-radius: 8px;
-    padding: 3rem 2.5rem;
+    padding: 2.6rem 1.5rem;
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
 }
 
 .newsletter-section h2 {
     color: #fff;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.45rem;
+    margin-bottom: 0.4rem;
 }
 
 .newsletter-section p {
-    color: rgba(255,255,255,0.7);
-    margin-bottom: 1.5rem;
+    color: rgba(255,255,255,0.83);
+    margin-bottom: 1rem;
     font-size: 0.95rem;
 }
 
@@ -444,34 +517,35 @@ h3 { font-size: 1.25rem; }
     margin: 0 auto;
 }
 
-/* Style mc4wp or generic form inputs inside newsletter */
 .newsletter-section input[type="email"] {
     width: 100%;
     padding: 0.8rem 1rem;
-    border: none;
-    border-radius: 4px;
+    border: 1px solid #ccd5f0;
+    border-radius: 5px;
     font-size: 0.95rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.7rem;
+    background: #fff;
+    color: #1d213f;
 }
 
 .newsletter-section input[type="submit"],
 .newsletter-section button {
-    background: #c8102e;
-    color: #fff;
+    background: #fff;
+    color: var(--brand);
     border: none;
     border-radius: 4px;
-    padding: 0.8rem 2rem;
+    padding: 0.8rem 1.4rem;
     font-weight: 700;
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .newsletter-section input[type="submit"]:hover,
 .newsletter-section button:hover {
-    background: #9b0c22;
+    background: #e9ebff;
 }
 
 /* ============================================

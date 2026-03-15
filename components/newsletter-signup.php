@@ -1,6 +1,6 @@
 <?php
 /**
- * Reusable newsletter signup component for inside strata theme.
+ * Reusable newsletter signup component for The Strata Review theme.
  *
  * Usage:
  * include get_template_directory() . '/components/newsletter-signup.php';
