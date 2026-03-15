@@ -124,27 +124,33 @@
     /* =========================================================
        SPONSORED POSTS / OUR BRANDS
        ========================================================= */
-    include_once get_template_directory() . '/components/sponsored-card.php';
+    include_once get_template_directory() . '/components/brand-card.php';
 
     $sponsored_brands = array(
         array(
             'name'        => 'Cohabit',
             'description' => 'Innovative co-living spaces designed for modern professionals seeking community and convenience.',
-            'logo'        => '', // Optional logo URL
-            'url'         => 'https://cohabit.com'
+            'bg_image'    => 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80',
+            'url'         => 'https://cohabit.com',
         ),
         array(
             'name'        => 'Lannock',
             'description' => 'Premium menswear and accessories crafted with timeless style and exceptional quality.',
-            'logo'        => '', // Optional logo URL
-            'url'         => 'https://lannock.com'
+            'bg_image'    => 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1200&q=80',
+            'url'         => 'https://lannock.com',
         ),
         array(
             'name'        => 'Kerin Benson',
             'description' => 'Contemporary fashion and lifestyle brand offering unique pieces for the discerning individual.',
-            'logo'        => '', // Optional logo URL
-            'url'         => 'https://kerinbenson.com'
-        )
+            'bg_image'    => 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=1200&q=80',
+            'url'         => 'https://kerinbenson.com',
+        ),
+        array(
+            'name'        => 'Strata Studio',
+            'description' => 'Editorial, data-driven storytelling for property and finance leaders.',
+            'bg_image'    => 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
+            'url'         => 'https://example.com',
+        ),
     );
     ?>
 
@@ -154,7 +160,7 @@
         <p class="section-intro">Discover our curated selection of premium brands and partners that align with our commitment to quality and innovation.</p>
         <div class="sponsored-grid">
             <?php foreach ( $sponsored_brands as $brand ) : ?>
-                <?php render_sponsored_card( $brand ); ?>
+                <?php render_brand_card( $brand ); ?>
             <?php endforeach; ?>
         </div>
     </section>
