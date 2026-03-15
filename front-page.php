@@ -168,13 +168,13 @@
 
 
     <!-- NEWSLETTER SIGNUP -->
-    <section class="newsletter-section">
-        <h2>Stay Informed</h2>
-        <p>Get the latest industry news and analysis delivered straight to your inbox.</p>
-        <div class="newsletter-form">
-            <?php echo do_shortcode('[mc4wp_form]'); ?>
-        </div>
-    </section>
+    <?php
+    include_once get_template_directory() . '/components/newsletter-signup.php';
+    render_newsletter_signup_section(array(
+        'heading' => 'Subscribe for updates',
+        'text'    => 'Get the latest news and analysis from Inside Strata delivered straight to your inbox.',
+    ));
+    ?>
 
 
     <?php
