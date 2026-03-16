@@ -4,22 +4,40 @@
 
     <?php
     /* =========================================================
-       HERO SECTION — 3 most recent posts
-       Post 1 = large primary (left), Posts 2–3 = secondary (right)
+       HERO CAROUSEL — Featured articles
+       ─────────────────────────────────────────────────────────
+       EDITORIAL: To control which articles appear in this
+       carousel, assign posts the "Featured" category in
+       WordPress admin (Posts › Categories). The carousel
+       automatically shows the 3 most recent posts from that
+       category, in reverse-chronological order.
+
+       If the "Featured" category does not exist yet, the
+       carousel falls back to the 3 most recent posts site-wide.
        ========================================================= */
-    $hero_query = new WP_Query(array(
+
+    // Resolve the "featured" category by slug so editors can
+    // manage carousel articles from Posts › Categories in WP Admin.
+    $featured_cat        = get_category_by_slug( 'featured' );
+    $featured_query_args = array(
         'posts_per_page'      => 3,
         'ignore_sticky_posts' => 1,
-    ));
+    );
 
-    $hero_ids   = array();
-    $hero_posts = array();
+    if ( $featured_cat ) {
+        $featured_query_args['cat'] = $featured_cat->term_id;
+    }
 
-    if ( $hero_query->have_posts() ) :
-        while ( $hero_query->have_posts() ) :
-            $hero_query->the_post();
-            $hero_ids[]   = get_the_ID();
-            $hero_posts[] = array(
+    $featured_query = new WP_Query( $featured_query_args );
+
+    $featured_ids   = array();
+    $featured_posts = array();
+
+    if ( $featured_query->have_posts() ) :
+        while ( $featured_query->have_posts() ) :
+            $featured_query->the_post();
+            $featured_ids[]   = get_the_ID();
+            $featured_posts[] = array(
                 'id'         => get_the_ID(),
                 'title'      => get_the_title(),
                 'permalink'  => get_permalink(),
@@ -32,51 +50,71 @@
     endif;
     ?>
 
-    <?php if ( ! empty($hero_posts) ) : ?>
-    <section class="hero-section">
-        <div class="hero-grid">
+    <?php if ( ! empty( $featured_posts ) ) :
+        $slide_count = count( $featured_posts );
+    ?>
+    <section
+        class="hero-carousel"
+        aria-label="Featured articles"
+        aria-roledescription="carousel"
+        data-slide-count="<?php echo esc_attr( $slide_count ); ?>"
+    >
+        <div class="carousel-track" aria-live="polite" aria-atomic="false">
 
-            <!-- PRIMARY HERO (latest post) -->
-            <?php $primary = $hero_posts[0]; ?>
-            <div class="hero-primary">
-                <a href="<?php echo esc_url($primary['permalink']); ?>">
-                    <?php if ( $primary['has_thumb'] ) : ?>
-                        <?php echo get_the_post_thumbnail($primary['id'], 'hero-large', array('class' => 'hero-image')); ?>
+            <?php foreach ( $featured_posts as $i => $slide ) : ?>
+            <div
+                class="carousel-slide<?php echo $i === 0 ? ' is-active' : ''; ?>"
+                role="group"
+                aria-roledescription="slide"
+                aria-label="Slide <?php echo esc_attr( $i + 1 ); ?> of <?php echo esc_attr( $slide_count ); ?>"
+                aria-hidden="<?php echo $i === 0 ? 'false' : 'true'; ?>"
+            >
+                <a href="<?php echo esc_url( $slide['permalink'] ); ?>">
+                    <?php if ( $slide['has_thumb'] ) : ?>
+                        <?php echo get_the_post_thumbnail( $slide['id'], 'hero-large', array( 'class' => 'hero-image' ) ); ?>
                     <?php endif; ?>
                     <div class="hero-content">
-                        <?php if ( ! empty($primary['categories']) ) : ?>
-                            <span class="article-category article-category--badge"><?php echo esc_html($primary['categories'][0]->name); ?></span>
+                        <?php if ( ! empty( $slide['categories'] ) ) : ?>
+                            <span class="article-category article-category--badge"><?php echo esc_html( $slide['categories'][0]->name ); ?></span>
                         <?php endif; ?>
-                        <h2><?php echo esc_html($primary['title']); ?></h2>
-                        <p class="hero-excerpt"><?php echo esc_html($primary['excerpt']); ?></p>
+                        <h2><?php echo esc_html( $slide['title'] ); ?></h2>
+                        <p class="hero-excerpt"><?php echo esc_html( $slide['excerpt'] ); ?></p>
+                        <span class="hero-read-more">Read Article &rarr;</span>
                     </div>
                 </a>
             </div>
+            <?php endforeach; ?>
 
-            <!-- SECONDARY HEROES (posts 2 & 3) -->
-            <?php if ( count($hero_posts) > 1 ) : ?>
-            <div class="hero-secondary-stack">
-                <?php for ( $i = 1; $i < count($hero_posts); $i++ ) : $sec = $hero_posts[$i]; ?>
-                <div class="hero-secondary">
-                    <a href="<?php echo esc_url($sec['permalink']); ?>">
-                        <?php if ( $sec['has_thumb'] ) : ?>
-                            <?php echo get_the_post_thumbnail($sec['id'], 'card-medium', array('class' => 'hero-image')); ?>
-                        <?php endif; ?>
-                        <div class="hero-content">
-                            <?php if ( ! empty($sec['categories']) ) : ?>
-                                <span class="article-category article-category--badge"><?php echo esc_html($sec['categories'][0]->name); ?></span>
-                            <?php endif; ?>
-                            <h3><?php echo esc_html($sec['title']); ?></h3>
-                            <p class="hero-excerpt"><?php echo esc_html($sec['excerpt']); ?></p>
-                        </div>
-                    </a>
-                </div>
-                <?php endfor; ?>
-            </div>
-            <?php endif; ?>
+        </div><!-- /.carousel-track -->
 
-        </div>
-    </section>
+        <?php if ( $slide_count > 1 ) : ?>
+        <!-- Prev / Next controls -->
+        <button class="carousel-btn carousel-btn--prev" aria-label="Previous article">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+                <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <button class="carousel-btn carousel-btn--next" aria-label="Next article">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+                <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+        <!-- Dot navigation -->
+        <div class="carousel-dots" role="tablist" aria-label="Featured article slides">
+            <?php for ( $i = 0; $i < $slide_count; $i++ ) : ?>
+            <button
+                class="carousel-dot<?php echo $i === 0 ? ' is-active' : ''; ?>"
+                role="tab"
+                aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
+                aria-label="Show slide <?php echo esc_attr( $i + 1 ); ?>"
+                data-index="<?php echo esc_attr( $i ); ?>"
+            ></button>
+            <?php endfor; ?>
+        </div><!-- /.carousel-dots -->
+        <?php endif; ?>
+
+    </section><!-- /.hero-carousel -->
     <?php endif; ?>
 
 
@@ -86,7 +124,7 @@
        ========================================================= */
     $latest_query = new WP_Query(array(
         'posts_per_page'      => 6,
-        'post__not_in'        => $hero_ids,
+        'post__not_in'        => $featured_ids,
         'ignore_sticky_posts' => 1,
     ));
     ?>

@@ -286,34 +286,47 @@ p, li, blockquote {
 
 
 /* ============================================
-   HERO GRID  (1 large + 2 small)
+   HERO CAROUSEL
+   EDITORIAL: Assign the "Featured" category
+   (slug: featured) to posts in WP Admin to
+   control which articles appear in this carousel.
    ============================================ */
 
-.hero-section {
-    padding-top: 2rem;
-    margin-bottom: 2.5rem;
-}
-
-.hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-    min-height: 480px;
-}
-
-/* --- Primary + secondary hero cards --- */
-
-.hero-primary,
-.hero-secondary {
+.hero-carousel {
     position: relative;
-    border-radius: 8px;
     overflow: hidden;
+    border-radius: 8px;
     background: #111;
-    min-height: 320px;
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+    min-height: 520px;
 }
 
-.hero-primary a,
-.hero-secondary a {
+/* --- Track fills the carousel --- */
+
+.carousel-track {
+    position: absolute;
+    inset: 0;
+}
+
+/* --- Slides stack on top of each other --- */
+
+.carousel-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.55s ease;
+}
+
+.carousel-slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* --- Link fills the whole slide --- */
+
+.carousel-slide a {
     display: block;
     position: relative;
     width: 100%;
@@ -322,75 +335,145 @@ p, li, blockquote {
     color: inherit;
 }
 
-.hero-primary a::before,
-.hero-secondary a::before {
+/* --- Dark overlay (default); deep royal blue on hover/focus --- */
+
+.carousel-slide a::before {
     content: '';
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.65) 100%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.72) 100%);
     transition: background 0.35s ease;
     pointer-events: none;
 }
 
-.hero-primary:hover a::before,
-.hero-secondary:hover a::before,
-.hero-primary:focus-within a::before,
-.hero-secondary:focus-within a::before {
-    background: linear-gradient(180deg, rgba(17, 49, 137, 0.84) 0%, rgba(17, 49, 137, 0.95) 100%);
+.carousel-slide:hover a::before,
+.carousel-slide:focus-within a::before {
+    background: linear-gradient(180deg, rgba(17, 49, 137, 0.82) 0%, rgba(17, 49, 137, 0.96) 100%);
 }
 
-.hero-primary .hero-image,
-.hero-secondary .hero-image {
+/* --- Background image --- */
+
+.carousel-slide .hero-image {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     z-index: 0;
-    opacity: 1;
-    transition: transform 0.35s ease;
+    transition: transform 0.45s ease;
 }
 
-.hero-primary:hover .hero-image,
-.hero-secondary:hover .hero-image,
-.hero-primary:focus-within .hero-image,
-.hero-secondary:focus-within .hero-image {
-    transform: scale(1.01);
+.carousel-slide:hover .hero-image,
+.carousel-slide:focus-within .hero-image {
+    transform: scale(1.02);
 }
 
-.hero-primary .hero-content,
-.hero-secondary .hero-content {
-    position: relative;
+/* --- Slide content (anchored to the bottom) --- */
+
+.carousel-slide .hero-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 2;
-    padding: 1.5rem;
-    background: transparent;
+    padding: 2rem 2.5rem;
     color: #fff;
 }
 
-.hero-primary .hero-content h2,
-.hero-secondary .hero-content h3 {
+.carousel-slide .hero-content h2 {
     color: #fff;
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
     text-shadow: 0 3px 14px rgba(0, 0, 0, 0.45);
-    margin: 0 0 0.35rem;
+    margin: 0 0 0.45rem;
 }
 
-.hero-primary .hero-content .hero-excerpt,
-.hero-secondary .hero-content .hero-excerpt {
-    color: rgba(255, 255, 255, 0.95);
-    margin: 0;
-    line-height: 1.45;
+.carousel-slide .hero-content .hero-excerpt {
+    color: rgba(255, 255, 255, 0.92);
+    margin: 0 0 0.9rem;
+    line-height: 1.55;
+    max-width: 640px;
+    font-size: 0.95rem;
 }
 
-.hero-secondary-stack {
+.hero-read-more {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #fff;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.55);
+    padding-bottom: 1px;
+    transition: border-color 0.2s ease;
+}
+
+.carousel-slide:hover .hero-read-more,
+.carousel-slide:focus-within .hero-read-more {
+    border-color: rgba(255, 255, 255, 0.95);
+}
+
+/* --- Prev / Next buttons --- */
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
     display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
-.hero-secondary {
-    flex: 1;
-    min-height: 0;
+.carousel-btn:hover,
+.carousel-btn:focus-visible {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: #fff;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.carousel-btn--prev { left: 1.25rem; }
+.carousel-btn--next { right: 1.25rem; }
+
+/* --- Dot navigation --- */
+
+.carousel-dots {
+    position: absolute;
+    bottom: 1.4rem;
+    right: 2.5rem;
+    z-index: 10;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.carousel-dot.is-active,
+.carousel-dot:hover,
+.carousel-dot:focus-visible {
+    background: #fff;
+    transform: scale(1.3);
 }
 
 /* ============================================
@@ -1149,11 +1232,11 @@ p, li, blockquote {
    ============================================ */
 
 @media (max-width: 992px) {
-    .hero-grid {
-        min-height: 380px;
+    .hero-carousel {
+        min-height: 420px;
     }
 
-    .hero-primary .hero-content h2 {
+    .carousel-slide .hero-content h2 {
         font-size: 1.5rem;
     }
 
@@ -1209,30 +1292,28 @@ p, li, blockquote {
         padding: 0.75rem 0;
     }
 
-    /* Hero */
-    .hero-section {
-        padding-top: 1.25rem;
+    /* Hero Carousel */
+    .hero-carousel {
+        margin-top: 1.25rem;
+        min-height: 360px;
     }
 
-    .hero-grid {
-        grid-template-columns: 1fr;
-        min-height: auto;
+    .carousel-slide .hero-content {
+        padding: 1.5rem 1.25rem;
     }
 
-    .hero-primary .hero-content h2 {
+    .carousel-slide .hero-content h2 {
         font-size: 1.3rem;
     }
 
-    .hero-primary .hero-content .hero-excerpt {
-        display: none;
+    .carousel-btn {
+        width: 36px;
+        height: 36px;
     }
 
-    .hero-secondary .hero-content h3 {
-        font-size: 1rem;
-    }
-
-    .hero-secondary .hero-content .hero-excerpt {
-        display: none;
+    .carousel-dots {
+        right: 1.25rem;
+        bottom: 1rem;
     }
 
     /* Grids */
