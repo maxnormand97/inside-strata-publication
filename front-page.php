@@ -158,52 +158,6 @@
     <?php endif; ?>
 
 
-    <?php
-    /* =========================================================
-       SPONSORED POSTS / OUR BRANDS
-       ========================================================= */
-    include_once get_template_directory() . '/components/brand-card.php';
-
-    $sponsored_brands = array(
-        array(
-            'name'        => 'Cohabit',
-            'description' => 'Innovative co-living spaces designed for modern professionals seeking community and convenience.',
-            'bg_image'    => 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80',
-            'url'         => 'https://cohabit.com',
-        ),
-        array(
-            'name'        => 'Lannock',
-            'description' => 'Premium menswear and accessories crafted with timeless style and exceptional quality.',
-            'bg_image'    => 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1200&q=80',
-            'url'         => 'https://lannock.com',
-        ),
-        array(
-            'name'        => 'Kerin Benson',
-            'description' => 'Contemporary fashion and lifestyle brand offering unique pieces for the discerning individual.',
-            'bg_image'    => 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=1200&q=80',
-            'url'         => 'https://kerinbenson.com',
-        ),
-        array(
-            'name'        => 'Strata Studio',
-            'description' => 'Editorial, data-driven storytelling for property and finance leaders.',
-            'bg_image'    => 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
-            'url'         => 'https://example.com',
-        ),
-    );
-    ?>
-
-    <?php if ( ! empty( $sponsored_brands ) ) : ?>
-    <section class="sponsored-section">
-        <h2 class="section-heading">Our Brands</h2>
-        <p class="section-intro">Discover our curated selection of premium brands and partners that align with our commitment to quality and innovation.</p>
-        <div class="sponsored-grid">
-            <?php foreach ( $sponsored_brands as $brand ) : ?>
-                <?php render_brand_card( $brand ); ?>
-            <?php endforeach; ?>
-        </div>
-    </section>
-    <?php endif; ?>
-
 
     <!-- PROMO BANNER SLOT -->
     <div class="promo-slot">
