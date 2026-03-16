@@ -4,50 +4,51 @@
 
     <?php
     /* =========================================================
-       HERO CAROUSEL — Featured articles
+       HERO CAROUSEL — ACF-managed featured articles
        ─────────────────────────────────────────────────────────
-       EDITORIAL: To control which articles appear in this
-       carousel, assign posts the "Featured" category in
-       WordPress admin (Posts › Categories). The carousel
-       automatically shows the 3 most recent posts from that
-       category, in reverse-chronological order.
+       EDITORIAL: Go to Settings › Homepage Settings in WP Admin
+       and use the three "Featured Article" dropdowns to choose
+       which posts appear in this carousel. Changes take effect
+       immediately on save — no code changes needed.
 
-       If the "Featured" category does not exist yet, the
-       carousel falls back to the 3 most recent posts site-wide.
+       ACF field group : "Homepage Featured Articles"
+       ACF fields       : featured_article_1, featured_article_2,
+                          featured_article_3  (Post Object, on front page)
+       Requires         : Advanced Custom Fields (free or Pro)
        ========================================================= */
-
-    // Resolve the "featured" category by slug so editors can
-    // manage carousel articles from Posts › Categories in WP Admin.
-    $featured_cat        = get_category_by_slug( 'featured' );
-    $featured_query_args = array(
-        'posts_per_page'      => 3,
-        'ignore_sticky_posts' => 1,
-    );
-
-    if ( $featured_cat ) {
-        $featured_query_args['cat'] = $featured_cat->term_id;
-    }
-
-    $featured_query = new WP_Query( $featured_query_args );
 
     $featured_ids   = array();
     $featured_posts = array();
 
-    if ( $featured_query->have_posts() ) :
-        while ( $featured_query->have_posts() ) :
-            $featured_query->the_post();
-            $featured_ids[]   = get_the_ID();
-            $featured_posts[] = array(
-                'id'         => get_the_ID(),
-                'title'      => get_the_title(),
-                'permalink'  => get_permalink(),
-                'excerpt'    => get_the_excerpt(),
-                'categories' => get_the_category(),
-                'has_thumb'  => has_post_thumbnail(),
-            );
-        endwhile;
-        wp_reset_postdata();
-    endif;
+    // Read the three post objects from the front page itself.
+    // get_field() without a second argument (or passing the page ID)
+    // reads from the current post context — here that is the static
+    // front page. Returns a WP_Post object (return_format = 'object')
+    // or null/false when the field is empty.
+    $front_page_id = get_option( 'page_on_front' );
+    $acf_slots = array(
+        get_field( 'featured_article_1', $front_page_id ),
+        get_field( 'featured_article_2', $front_page_id ),
+        get_field( 'featured_article_3', $front_page_id ),
+    );
+
+    foreach ( $acf_slots as $post_obj ) {
+        if ( ! ( $post_obj instanceof WP_Post ) ) {
+            continue; // slot is empty or ACF is not active — skip gracefully
+        }
+
+        $cats = get_the_terms( $post_obj->ID, 'category' );
+
+        $featured_ids[]   = $post_obj->ID;
+        $featured_posts[] = array(
+            'id'         => $post_obj->ID,
+            'title'      => get_the_title( $post_obj->ID ),
+            'permalink'  => get_permalink( $post_obj->ID ),
+            'excerpt'    => get_the_excerpt( $post_obj ),
+            'categories' => ( $cats && ! is_wp_error( $cats ) ) ? $cats : array(),
+            'has_thumb'  => has_post_thumbnail( $post_obj->ID ),
+        );
+    }
     ?>
 
     <?php if ( ! empty( $featured_posts ) ) :
