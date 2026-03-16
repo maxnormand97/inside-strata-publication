@@ -39,6 +39,29 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+a,
+button,
+input[type='submit'],
+input[type='button'] {
+    transition: all 0.2s ease;
+}
+
+button,
+input[type='submit'],
+.input-button {
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover,
+button:focus-visible,
+input[type='submit']:hover,
+input[type='submit']:focus-visible {
+    color: #fff;
+    background: var(--brand);
+    border-color: var(--brand);
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -48,6 +71,15 @@ img {
 a {
     color: inherit;
     text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid rgba(17, 49, 137, 0.25);
+    outline-offset: 2px;
 }
 
 /* ============================================
@@ -157,12 +189,14 @@ p, li, blockquote {
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: #1f2248;
-    transition: color 0.15s ease;
+    transition: color 0.2s ease;
 }
 
-.menu-items a:hover {
+.menu-items a:hover,
+.menu-items a:focus-visible {
     color: var(--brand);
 }
+
 
 .menu-toggle {
     display: none;
@@ -267,60 +301,86 @@ p, li, blockquote {
     min-height: 480px;
 }
 
-/* --- Primary (large left) --- */
+/* --- Primary + secondary hero cards --- */
 
-.hero-primary {
+.hero-primary,
+.hero-secondary {
     position: relative;
     border-radius: 8px;
     overflow: hidden;
     background: #111;
-    grid-row: 1 / 2;
+    min-height: 320px;
 }
 
-.hero-primary a {
-    display: flex;
-    flex-direction: column;
+.hero-primary a,
+.hero-secondary a {
+    display: block;
+    position: relative;
+    width: 100%;
     height: 100%;
+    text-decoration: none;
+    color: inherit;
 }
 
-.hero-primary .hero-image {
+.hero-primary a::before,
+.hero-secondary a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.65) 100%);
+    transition: background 0.35s ease;
+    pointer-events: none;
+}
+
+.hero-primary:hover a::before,
+.hero-secondary:hover a::before,
+.hero-primary:focus-within a::before,
+.hero-secondary:focus-within a::before {
+    background: linear-gradient(180deg, rgba(17, 49, 137, 0.84) 0%, rgba(17, 49, 137, 0.95) 100%);
+}
+
+.hero-primary .hero-image,
+.hero-secondary .hero-image {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    position: absolute;
-    inset: 0;
-    opacity: 0.65;
-    transition: opacity 0.3s;
+    z-index: 0;
+    opacity: 1;
+    transition: transform 0.35s ease;
 }
 
-.hero-primary:hover .hero-image {
-    opacity: 0.45;
+.hero-primary:hover .hero-image,
+.hero-secondary:hover .hero-image,
+.hero-primary:focus-within .hero-image,
+.hero-secondary:focus-within .hero-image {
+    transform: scale(1.01);
 }
 
-.hero-primary .hero-content {
+.hero-primary .hero-content,
+.hero-secondary .hero-content {
     position: relative;
-    z-index: 1;
-    margin-top: auto;
-    padding: 2rem 2.25rem;
-    background: linear-gradient(transparent, rgba(0,0,0,0.88));
+    z-index: 2;
+    padding: 1.5rem;
+    background: transparent;
     color: #fff;
 }
 
-.hero-primary .hero-content h2 {
-    font-size: 1.75rem;
+.hero-primary .hero-content h2,
+.hero-secondary .hero-content h3 {
     color: #fff;
-    margin-bottom: 0.5rem;
-    line-height: 1.2;
+    text-shadow: 0 3px 14px rgba(0, 0, 0, 0.45);
+    margin: 0 0 0.35rem;
 }
 
-.hero-primary .hero-content .hero-excerpt {
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.8);
-    line-height: 1.5;
-    max-width: 520px;
+.hero-primary .hero-content .hero-excerpt,
+.hero-secondary .hero-content .hero-excerpt {
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    line-height: 1.45;
 }
-
-/* --- Secondary (stacked right) --- */
 
 .hero-secondary-stack {
     display: flex;
@@ -329,54 +389,8 @@ p, li, blockquote {
 }
 
 .hero-secondary {
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #111;
     flex: 1;
     min-height: 0;
-}
-
-.hero-secondary a {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.hero-secondary .hero-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    inset: 0;
-    opacity: 0.6;
-    transition: opacity 0.3s;
-}
-
-.hero-secondary:hover .hero-image {
-    opacity: 0.4;
-}
-
-.hero-secondary .hero-content {
-    position: relative;
-    z-index: 1;
-    margin-top: auto;
-    padding: 1.25rem 1.5rem;
-    background: linear-gradient(transparent, rgba(0,0,0,0.85));
-    color: #fff;
-}
-
-.hero-secondary .hero-content h3 {
-    font-size: 1.1rem;
-    color: #fff;
-    line-height: 1.25;
-    margin-bottom: 0.25rem;
-}
-
-.hero-secondary .hero-content .hero-excerpt {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.75);
-    line-height: 1.4;
 }
 
 /* ============================================
@@ -436,16 +450,9 @@ p, li, blockquote {
     transition: color 0.2s ease;
 }
 
-.article-card h3 a:hover {
+.article-card h3 a:hover,
+.article-card h3 a:focus-visible {
     color: var(--brand);
-}
-
-.article-card .card-excerpt {
-    font-size: 0.85rem;
-    color: #555;
-    line-height: 1.55;
-    margin-bottom: 1rem;
-    flex: 1;
 }
 
 .article-card .read-more {
@@ -457,9 +464,11 @@ p, li, blockquote {
     transition: color 0.2s ease;
 }
 
-.article-card .read-more:hover {
-    color: #0f1f5f;
+.article-card .read-more:hover,
+.article-card .read-more:focus-visible {
+    color: #0d1f63;
 }
+
 
 /* ============================================
    PROMO SLOT
@@ -601,16 +610,9 @@ p, li, blockquote {
     transition: color 0.2s;
 }
 
-.spotlight-primary h3 a:hover {
-    color: #c8102e;
-}
-
-.spotlight-primary .card-excerpt {
-    font-size: 0.9rem;
-    color: #555;
-    line-height: 1.55;
-    margin-bottom: 1rem;
-    flex: 1;
+.spotlight-primary h3 a:hover,
+.spotlight-primary h3 a:focus-visible {
+    color: var(--brand);
 }
 
 .spotlight-primary .read-more {
@@ -618,13 +620,15 @@ p, li, blockquote {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #c8102e;
+    color: var(--brand);
     transition: color 0.2s;
 }
 
-.spotlight-primary .read-more:hover {
-    color: #9b0c22;
+.spotlight-primary .read-more:hover,
+.spotlight-primary .read-more:focus-visible {
+    color: #0d1f63;
 }
+
 
 /* Small spotlight cards (right, stacked) */
 .spotlight-secondary-stack {
@@ -673,8 +677,9 @@ p, li, blockquote {
     transition: color 0.2s;
 }
 
-.spotlight-secondary h3 a:hover {
-    color: #c8102e;
+.spotlight-secondary h3 a:hover,
+.spotlight-secondary h3 a:focus-visible {
+    color: var(--brand);
 }
 
 .spotlight-secondary .card-excerpt {
@@ -798,28 +803,133 @@ p, li, blockquote {
    ============================================ */
 
 .site-footer {
-    background: #111;
-    color: rgba(255,255,255,0.6);
-    padding: 2.5rem 0;
-    text-align: center;
-    font-size: 0.85rem;
+    background: var(--brand);
+    color: rgba(255,255,255,0.95);
+    padding: 3rem 0 1.5rem;
     margin-top: 2rem;
+    border-top: 4px solid #0f266e;
 }
 
-.site-footer a {
-    color: rgba(255,255,255,0.85);
-    transition: color 0.2s;
-}
-
-.site-footer a:hover {
-    color: #fff;
-}
-
-.site-footer .footer-content {
+.footer-inner {
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding-bottom: 1.5rem;
+}
+
+.footer-brand p {
+    margin-top: 0.8rem;
+    line-height: 1.55;
+    max-width: 400px;
+    color: rgba(255,255,255,0.9);
+    font-size: 0.95rem;
+}
+
+.footer-logo {
+    max-height: 44px;
+    width: auto;
+    display: block;
+}
+
+.footer-links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(120px, 1fr));
+    gap: 1rem;
+}
+
+.footer-link-group h4 {
+    margin-bottom: 0.45rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.95);
+    font-weight: 700;
+}
+
+.footer-link-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.footer-link-group li a {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.9);
+    transition: color 0.2s ease;
+}
+
+.footer-link-group li a:hover,
+.footer-link-group li a:focus-visible {
+    color: #f6f8ff;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 1rem;
+    font-size: 0.8rem;
+    color: #fff;
+    flex-wrap: wrap;
+    padding-top: 1rem;
+}
+
+.footer-copy {
+    color: #fff;
+    margin: 0;
+}
+
+
+.footer-bottom-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.footer-bottom-links a {
+    color: rgba(255,255,255,0.85);
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-bottom-color 0.2s ease;
+}
+
+.footer-bottom-links a:hover,
+.footer-bottom-links a:focus-visible {
+    color: #fff;
+    border-bottom-color: rgba(255,255,255,0.5);
+}
+
+.footer-logo-link {
+    display: inline-block;
+}
+
+@media (max-width: 900px) {
+    .footer-top {
+        grid-template-columns: 1fr;
+    }
+    .footer-links-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .footer-links-grid {
+        grid-template-columns: 1fr;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
 
 /* ============================================
@@ -907,13 +1017,13 @@ p, li, blockquote {
     background-size: cover;
     background-position: center;
     border: 1px solid rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
 .brand-card:hover,
 .brand-card:focus-within {
     transform: translateY(-2px);
-    border-color: rgba(0,0,0,0.18);
+    border-color: rgba(17,49,137,0.45);
 }
 
 .brand-card-link {
@@ -928,15 +1038,15 @@ p, li, blockquote {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.6) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.56) 100%);
     transition: background 0.3s ease;
 }
 
 .brand-card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.65) 100%);
-    transition: background 0.3s ease;
+    background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.68) 100%);
+    transition: background 0.35s ease;
     z-index: 0;
 }
 
@@ -945,8 +1055,9 @@ p, li, blockquote {
     z-index: 2;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.35rem;
     align-items: center;
+    text-align: center;
 }
 
 .brand-card-logo img {
@@ -964,8 +1075,9 @@ p, li, blockquote {
     margin: 0;
     line-height: 1.2;
     max-width: 90%;
-    color: white;
+    color: #fff;
     margin-top: 3rem;
+    text-shadow: 0 4px 14px rgba(0,0,0,0.35);
 }
 
 .brand-card-description {
@@ -975,8 +1087,8 @@ p, li, blockquote {
     line-height: 1.45;
     max-width: 90%;
     opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(6px);
+    transition: opacity 0.28s ease, transform 0.28s ease;
 }
 
 .brand-card-cta {
@@ -984,7 +1096,7 @@ p, li, blockquote {
     margin-top: 0.8rem;
     padding: 0.35rem 0.7rem;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.75);
     background: rgba(255,255,255,0.1);
     color: #fff;
     font-size: 0.75rem;
@@ -992,14 +1104,15 @@ p, li, blockquote {
     letter-spacing: 0.04em;
     text-transform: uppercase;
     opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    transform: translateY(6px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
     width: fit-content;
+    backdrop-filter: blur(2px);
 }
 
 .brand-card:hover .brand-card-overlay,
 .brand-card:focus-within .brand-card-overlay {
-    background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%);
+    background: linear-gradient(180deg, rgba(17,49,137,0.82) 0%, rgba(17,49,137,0.92) 100%), rgba(17,49,137,0.4);
 }
 
 .brand-card:hover .brand-card-description,
@@ -1015,7 +1128,7 @@ p, li, blockquote {
 }
 
 .brand-card-link:focus-visible {
-    outline: 3px solid rgba(255,255,255,0.8);
+    outline: 3px solid rgba(255,255,255,0.9);
     outline-offset: 2px;
 }
 
