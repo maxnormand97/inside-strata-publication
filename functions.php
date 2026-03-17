@@ -53,3 +53,78 @@ function inside_strata_excerpt_more($more) {
     return '&hellip;';
 }
 add_filter('excerpt_more', 'inside_strata_excerpt_more');
+
+/* ============================================
+   ACF — HOMEPAGE SETTINGS
+   Requires Advanced Custom Fields (free or Pro).
+
+   HOW TO USE:
+   1. Install & activate the ACF plugin.
+   2. Go to Settings › Homepage Settings in WP Admin.
+   3. Use the three "Featured Article" selectors to
+      pick which posts appear in the homepage carousel.
+   4. Click Save — the carousel updates immediately.
+   ============================================ */
+if ( function_exists( 'acf_add_options_page' ) ) {
+
+    // Register the options page under Settings menu
+    acf_add_options_page( array(
+        'page_title'  => 'Homepage Settings',
+        'menu_title'  => 'Homepage Settings',
+        'menu_slug'   => 'homepage-settings',
+        'parent_slug' => 'options-general.php',
+        'capability'  => 'edit_posts',
+        'redirect'    => false,
+    ) );
+
+    // Register the field group programmatically so it works
+    // without importing JSON — no ACF sync step required.
+    acf_add_local_field_group( array(
+        'key'    => 'group_homepage_featured',
+        'title'  => 'Homepage Featured Articles',
+        'fields' => array(
+            array(
+                'key'           => 'field_featured_post_1',
+                'label'         => 'Featured Article 1',
+                'name'          => 'featured_post_1',
+                'type'          => 'post_object',
+                'instructions'  => 'First slide in the homepage carousel.',
+                'post_type'     => array( 'post' ),
+                'return_format' => 'object',
+                'ui'            => 1,
+                'allow_null'    => 1,
+            ),
+            array(
+                'key'           => 'field_featured_post_2',
+                'label'         => 'Featured Article 2',
+                'name'          => 'featured_post_2',
+                'type'          => 'post_object',
+                'instructions'  => 'Second slide in the homepage carousel.',
+                'post_type'     => array( 'post' ),
+                'return_format' => 'object',
+                'ui'            => 1,
+                'allow_null'    => 1,
+            ),
+            array(
+                'key'           => 'field_featured_post_3',
+                'label'         => 'Featured Article 3',
+                'name'          => 'featured_post_3',
+                'type'          => 'post_object',
+                'instructions'  => 'Third slide in the homepage carousel.',
+                'post_type'     => array( 'post' ),
+                'return_format' => 'object',
+                'ui'            => 1,
+                'allow_null'    => 1,
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param'    => 'options_page',
+                    'operator' => '==',
+                    'value'    => 'homepage-settings',
+                ),
+            ),
+        ),
+    ) );
+}

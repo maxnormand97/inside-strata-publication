@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* ============================================
        HERO CAROUSEL
-       EDITORIAL: Assign the "Featured" category
-       (slug: featured) to posts in WordPress admin
-       to control which articles appear here.
+       EDITORIAL: Manage carousel articles from
+       Settings › Homepage Settings in WP Admin.
+       (ACF post object fields — no code changes needed)
        ============================================ */
     (function () {
         var carousel = document.querySelector('.hero-carousel');
