@@ -1,6 +1,26 @@
 <?php get_header(); ?>
 
+<?php
+/*
+ * Load the ad-slot component once so render_ad_slot() is available
+ * to both the inline placement and the sidebar placement below.
+ */
+require_once get_template_directory() . '/components/ad-slot.php';
+require_once get_template_directory() . '/components/sidebar-ad.php';
+?>
+
 <div class="container">
+
+    <?php
+    /*
+     * Two-column layout: article content on the left, sticky sidebar on the right.
+     * The sidebar collapses to a single column on screens narrower than 992 px.
+     * See .single-layout in style.css.
+     */
+    ?>
+    <div class="single-layout"><!-- open: two-column layout -->
+
+    <main class="single-main"><!-- open: article column -->
 
     <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
@@ -28,10 +48,10 @@
             <?php the_content(); ?>
         </div>
 
-        <!-- INLINE PROMO SLOT -->
-        <div class="inline-promo-slot">
-            <p>Promotional Banner &mdash; Ad Space</p>
-        </div>
+        <!-- INLINE AD — ACF-managed
+             MARKETING: WP Admin → Settings → Advertisement Settings → Article Inline Ad
+             Toggle on/off or swap sponsor content there without editing code. -->
+        <?php render_ad_slot( array( 'slot' => 'inline' ) ); ?>
 
     </article>
 
@@ -86,6 +106,21 @@
         </div>
     </section>
     <?php endif; wp_reset_postdata(); endif; ?>
+
+    </main><!-- /single-main -->
+
+    <aside class="single-sidebar">
+        <?php
+        /*
+         * SIDEBAR AD — ACF-managed
+         * MARKETING: WP Admin → Settings → Advertisement Settings → Article Sidebar Ad
+         * Toggle on/off or swap sponsor content there without editing code.
+         */
+        render_sidebar_ad();
+        ?>
+    </aside><!-- /single-sidebar -->
+
+    </div><!-- /single-layout -->
 
 </div>
 

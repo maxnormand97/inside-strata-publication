@@ -55,30 +55,17 @@ function inside_strata_excerpt_more($more) {
 add_filter('excerpt_more', 'inside_strata_excerpt_more');
 
 /* ============================================
-   ACF — HOMEPAGE SETTINGS
-   Requires Advanced Custom Fields (free or Pro).
+   ACF — HOMEPAGE FEATURED ARTICLES (ACF Free)
+   Fields appear in the Home page editor.
 
    HOW TO USE:
-   1. Install & activate the ACF plugin.
-   2. Go to Settings › Homepage Settings in WP Admin.
-   3. Use the three "Featured Article" selectors to
-      pick which posts appear in the homepage carousel.
-   4. Click Save — the carousel updates immediately.
+   1. In WP Admin go to Pages and open your Home page.
+   2. Use the three "Featured Article" dropdowns to choose
+      which posts appear in the hero carousel.
+   3. Click Update — the carousel changes immediately.
    ============================================ */
-if ( function_exists( 'acf_add_options_page' ) ) {
+if ( function_exists( 'acf_add_local_field_group' ) ) {
 
-    // Register the options page under Settings menu
-    acf_add_options_page( array(
-        'page_title'  => 'Homepage Settings',
-        'menu_title'  => 'Homepage Settings',
-        'menu_slug'   => 'homepage-settings',
-        'parent_slug' => 'options-general.php',
-        'capability'  => 'edit_posts',
-        'redirect'    => false,
-    ) );
-
-    // Register the field group programmatically so it works
-    // without importing JSON — no ACF sync step required.
     acf_add_local_field_group( array(
         'key'    => 'group_homepage_featured',
         'title'  => 'Homepage Featured Articles',
@@ -120,9 +107,236 @@ if ( function_exists( 'acf_add_options_page' ) ) {
         'location' => array(
             array(
                 array(
-                    'param'    => 'options_page',
+                    'param'    => 'page_type',
                     'operator' => '==',
-                    'value'    => 'homepage-settings',
+                    'value'    => 'front_page',
+                ),
+            ),
+        ),
+    ) );
+}
+
+/* ============================================
+   ACF — SIDEBAR AD (ACF Free)
+   Fields are attached to the "Ad Settings" page.
+
+   HOW TO USE:
+   1. In WP Admin go to Pages and open "Ad Settings".
+   2. Scroll down to the "Article Sidebar Ad" meta box.
+   3. Fill in the sidebar ad fields and toggle Ad Enabled on.
+   4. Click Update — the sidebar ad updates on all articles.
+
+   The "Ad Settings" page is a normal draft/private WordPress page
+   used as a free-tier global settings store. It is never published
+   to site visitors — set its status to Draft or Private.
+   ============================================ */
+if ( function_exists( 'acf_add_local_field_group' ) ) {
+
+    acf_add_local_field_group( array(
+        'key'    => 'group_strata_sidebar_ad',
+        'title'  => 'Article Sidebar Ad',
+        'fields' => array(
+            array(
+                'key'          => 'field_strata_sidebar_ad_enabled',
+                'label'        => 'Ad Enabled',
+                'name'         => 'sidebar_ad_enabled',
+                'type'         => 'true_false',
+                'instructions' => 'Toggle on to show this ad on all article pages.',
+                'ui'           => 1,
+                'default_value'=> 0,
+            ),
+            array(
+                'key'          => 'field_strata_sidebar_ad_title',
+                'label'        => 'Ad Title / Sponsor Name',
+                'name'         => 'sidebar_ad_title',
+                'type'         => 'text',
+            ),
+            array(
+                'key'           => 'field_strata_sidebar_ad_image',
+                'label'         => 'Ad Image',
+                'name'          => 'sidebar_ad_image',
+                'type'          => 'image',
+                'instructions'  => 'Recommended: 600 × 360 px.',
+                'return_format' => 'array',
+                'preview_size'  => 'medium',
+            ),
+            array(
+                'key'          => 'field_strata_sidebar_ad_url',
+                'label'        => 'Ad Destination URL',
+                'name'         => 'sidebar_ad_url',
+                'type'         => 'url',
+            ),
+            array(
+                'key'          => 'field_strata_sidebar_ad_description',
+                'label'        => 'Ad Description (optional)',
+                'name'         => 'sidebar_ad_description',
+                'type'         => 'textarea',
+                'rows'         => 2,
+            ),
+            array(
+                'key'          => 'field_strata_sidebar_ad_cta_text',
+                'label'        => 'Call-to-Action Text (optional)',
+                'name'         => 'sidebar_ad_cta_text',
+                'type'         => 'text',
+                'instructions' => 'e.g. "Learn More" or "Visit Site"',
+            ),
+        ),
+        // Location: show this meta box only on the "Ad Settings" page.
+        // We look the page up by slug at registration time so this works
+        // regardless of the page's numeric ID across environments.
+        // Change 'ad-settings' below if you rename the page's slug.
+        'location' => array(
+            array(
+                array(
+                    'param'    => 'page_slug',
+                    'operator' => '==',
+                    'value'    => 'ad-settings',
+                ),
+            ),
+        ),
+    ) );
+}
+
+/* ============================================
+   ACF — ADVERTISEMENT SLOTS (ACF Free)
+   Fields are attached to the static front page
+   (Home page editor). No options pages needed.
+
+   HOW TO USE:
+   1. In WP Admin go to Pages and open your Home page.
+   2. Scroll down to the "Advertisement Slots" meta box.
+   3. Fill in the Homepage Banner and/or Footer Promo fields.
+   4. Toggle "Ad Enabled" on, then click Update.
+
+   AD SLOTS managed here:
+   • Homepage Banner  — billboard below Latest News
+   • Footer Promo     — compact banner above the site footer
+
+   Sidebar and Inline ads for article pages can be added
+   to this same field group later with a second location
+   rule targeting singular posts, or a dedicated page.
+   ============================================ */
+if ( function_exists( 'acf_add_local_field_group' ) ) {
+
+    acf_add_local_field_group( array(
+        'key'    => 'group_strata_ad_slots',
+        'title'  => 'Advertisement Slots',
+        'fields' => array(
+
+            // ── HOMEPAGE BANNER ───────────────────────────────────────
+            array(
+                'key'   => 'field_strata_ad_tab_homepage',
+                'label' => 'Homepage Banner Ad',
+                'name'  => '',
+                'type'  => 'tab',
+            ),
+            array(
+                'key'          => 'field_strata_homepage_ad_enabled',
+                'label'        => 'Ad Enabled',
+                'name'         => 'homepage_ad_enabled',
+                'type'         => 'true_false',
+                'instructions' => 'Toggle on to show this ad on the homepage.',
+                'ui'           => 1,
+                'default_value'=> 0,
+            ),
+            array(
+                'key'          => 'field_strata_homepage_ad_title',
+                'label'        => 'Ad Title / Sponsor Name',
+                'name'         => 'homepage_ad_title',
+                'type'         => 'text',
+                'instructions' => 'e.g. "Proudly sponsored by Acme Corp"',
+            ),
+            array(
+                'key'           => 'field_strata_homepage_ad_image',
+                'label'         => 'Ad Image',
+                'name'          => 'homepage_ad_image',
+                'type'          => 'image',
+                'instructions'  => 'Recommended: 680 × 400 px.',
+                'return_format' => 'array',
+                'preview_size'  => 'medium',
+            ),
+            array(
+                'key'          => 'field_strata_homepage_ad_url',
+                'label'        => 'Ad Destination URL',
+                'name'         => 'homepage_ad_url',
+                'type'         => 'url',
+                'instructions' => 'Full URL including https://',
+            ),
+            array(
+                'key'          => 'field_strata_homepage_ad_description',
+                'label'        => 'Ad Description (optional)',
+                'name'         => 'homepage_ad_description',
+                'type'         => 'textarea',
+                'rows'         => 2,
+            ),
+            array(
+                'key'          => 'field_strata_homepage_ad_cta_text',
+                'label'        => 'Call-to-Action Text (optional)',
+                'name'         => 'homepage_ad_cta_text',
+                'type'         => 'text',
+                'instructions' => 'e.g. "Learn More" or "Visit Site"',
+            ),
+
+            // ── FOOTER PROMO ──────────────────────────────────────────
+            array(
+                'key'   => 'field_strata_ad_tab_footer',
+                'label' => 'Footer Promo Ad',
+                'name'  => '',
+                'type'  => 'tab',
+            ),
+            array(
+                'key'          => 'field_strata_footer_ad_enabled',
+                'label'        => 'Ad Enabled',
+                'name'         => 'footer_ad_enabled',
+                'type'         => 'true_false',
+                'instructions' => 'Toggle on to show this ad above the site footer.',
+                'ui'           => 1,
+                'default_value'=> 0,
+            ),
+            array(
+                'key'          => 'field_strata_footer_ad_title',
+                'label'        => 'Ad Title / Sponsor Name',
+                'name'         => 'footer_ad_title',
+                'type'         => 'text',
+            ),
+            array(
+                'key'           => 'field_strata_footer_ad_image',
+                'label'         => 'Ad Image',
+                'name'          => 'footer_ad_image',
+                'type'          => 'image',
+                'instructions'  => 'Recommended: 520 × 320 px.',
+                'return_format' => 'array',
+                'preview_size'  => 'medium',
+            ),
+            array(
+                'key'          => 'field_strata_footer_ad_url',
+                'label'        => 'Ad Destination URL',
+                'name'         => 'footer_ad_url',
+                'type'         => 'url',
+            ),
+            array(
+                'key'          => 'field_strata_footer_ad_description',
+                'label'        => 'Ad Description (optional)',
+                'name'         => 'footer_ad_description',
+                'type'         => 'textarea',
+                'rows'         => 2,
+            ),
+            array(
+                'key'          => 'field_strata_footer_ad_cta_text',
+                'label'        => 'Call-to-Action Text (optional)',
+                'name'         => 'footer_ad_cta_text',
+                'type'         => 'text',
+            ),
+        ),
+        // Location: show this meta box only on the static front page.
+        // In WP Admin → Settings → Reading, "Your homepage" must be
+        // set to a static page for this rule to match.
+        'location' => array(
+            array(
+                array(
+                    'param'    => 'page_type',
+                    'operator' => '==',
+                    'value'    => 'front_page',
                 ),
             ),
         ),

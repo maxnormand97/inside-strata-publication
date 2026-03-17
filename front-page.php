@@ -160,10 +160,17 @@
 
 
 
-    <!-- PROMO BANNER SLOT -->
-    <div class="promo-slot">
-        <p>Promotional Banner &mdash; Advertisement</p>
-    </div>
+    <?php
+    /* =========================================================
+       HOMEPAGE BANNER AD — ACF-managed
+       ─────────────────────────────────────────────────────────
+       MARKETING: Go to Settings › Advertisement Settings in
+       WP Admin and open the "Homepage Banner Ad" tab to update
+       the sponsor image, headline, link, or toggle it on/off.
+       ========================================================= */
+    require_once get_template_directory() . '/components/ad-slot.php';
+    render_ad_slot( array( 'slot' => 'homepage' ) );
+    ?>
 
 
     <!-- NEWSLETTER SIGNUP -->
@@ -258,6 +265,17 @@
     <?php
         endif;
     endif;
+    ?>
+
+    <?php
+    /* =========================================================
+       FOOTER PROMO AD — ACF-managed (optional)
+       ─────────────────────────────────────────────────────────
+       MARKETING: Go to Settings › Advertisement Settings in
+       WP Admin and open the "Footer Promo Ad" tab to manage
+       this slot, or toggle it off to hide it entirely.
+       ========================================================= */
+    render_ad_slot( array( 'slot' => 'footer' ) );
     ?>
 
 </div>
