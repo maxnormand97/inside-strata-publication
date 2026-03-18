@@ -18,20 +18,11 @@
             </div>
             <div class="footer-links-grid">
                 <div class="footer-link-group">
-                    <h4>Publication</h4>
-                    <ul>
-                        <li><a href="<?php echo esc_url( home_url('/latest-news') ); ?>">Latest News</a></li>
-                        <li><a href="<?php echo esc_url( home_url('/industry-insights') ); ?>">Industry Insights</a></li>
-                        <li><a href="<?php echo esc_url( home_url('/sponsored-posts') ); ?>">Sponsored Posts</a></li>
-                        <li><a href="<?php echo esc_url( home_url('/our-brands') ); ?>">Our Brands</a></li>
-                    </ul>
-                </div>
-                <div class="footer-link-group">
                     <h4>Company</h4>
                     <ul>
                         <li><a href="<?php echo esc_url( home_url('/about') ); ?>">About</a></li>
                         <li><a href="<?php echo esc_url( home_url('/contact') ); ?>">Contact</a></li>
-                        <li><a href="#">Advertise</a></li>
+                        <li><a href="<?php echo esc_url( home_url('/advertise') ); ?>">Advertise</a></li>
                         <li><a href="<?php echo esc_url( home_url('/privacy-policy') ); ?>">Privacy Policy</a></li>
                     </ul>
                 </div>
@@ -50,6 +41,8 @@
             <div class="footer-bottom-links">
                 <a href="<?php echo esc_url( home_url('/about') ); ?>">About</a>
                 <a href="<?php echo esc_url( home_url('/contact') ); ?>">Contact</a>
+                <a href="<?php echo esc_url( home_url('/advertise') ); ?>">Advertise</a>
+                <a href="<?php echo esc_url( home_url('/newsletter') ); ?>">Newsletter</a>
                 <a href="<?php echo esc_url( home_url('/privacy-policy') ); ?>">Privacy</a>
             </div>
         </div>

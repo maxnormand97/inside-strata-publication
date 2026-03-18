@@ -88,18 +88,6 @@
         </div><!-- /.carousel-track -->
 
         <?php if ( $slide_count > 1 ) : ?>
-        <!-- Prev / Next controls -->
-        <button class="carousel-btn carousel-btn--prev" aria-label="Previous article">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
-                <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
-        <button class="carousel-btn carousel-btn--next" aria-label="Next article">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
-                <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
-
         <!-- Dot navigation -->
         <div class="carousel-dots" role="tablist" aria-label="Featured article slides">
             <?php for ( $i = 0; $i < $slide_count; $i++ ) : ?>
