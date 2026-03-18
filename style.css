@@ -287,9 +287,9 @@ p, li, blockquote {
 
 /* ============================================
    HERO CAROUSEL
-   EDITORIAL: Assign the "Featured" category
-   (slug: featured) to posts in WP Admin to
-   control which articles appear in this carousel.
+   EDITORIAL: In WP Admin go to Pages and open your Home page.
+   Use the "Featured Article 1/2/3" dropdowns (ACF fields) to
+   choose which posts appear in this carousel. No code changes needed.
    ============================================ */
 
 .hero-carousel {
@@ -1247,6 +1247,12 @@ a.ad-slot__inner:hover .ad-slot__image {
 
 .footer-logo-link {
     display: inline-block;
+}
+
+.footer-site-title {
+    color: #fff;
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
 }
 
 @media (max-width: 900px) {

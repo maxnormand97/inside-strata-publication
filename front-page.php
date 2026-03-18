@@ -6,9 +6,9 @@
     /* =========================================================
        HERO CAROUSEL — ACF-managed featured articles
        ─────────────────────────────────────────────────────────
-       EDITORIAL: Go to Settings › Homepage Settings in WP Admin
-       and use the three "Featured Article" dropdowns to choose
-       which posts appear in this carousel. Changes take effect
+       EDITORIAL: In WP Admin go to Pages and open your Home page.
+       Use the three "Featured Article" dropdowns to choose which
+       posts appear in this carousel. Changes take effect
        immediately on save — no code changes needed.
 
        ACF field group : "Homepage Featured Articles"
@@ -21,9 +21,8 @@
     $featured_posts = array();
 
     // Read the three post objects from the front page itself.
-    // get_field() without a second argument (or passing the page ID)
-    // reads from the current post context — here that is the static
-    // front page. Returns a WP_Post object (return_format = 'object')
+    // get_field() with the page ID reads from that page's post meta.
+    // Returns a WP_Post object (return_format = 'object')
     // or null/false when the field is empty.
     $front_page_id = get_option( 'page_on_front' );
     $acf_slots = array(

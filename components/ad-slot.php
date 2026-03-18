@@ -36,11 +36,7 @@ function render_ad_slot( $args = array() ) {
         $source           = $ad_settings_page ? (int) $ad_settings_page->ID : 0;
     }
 
-    // TEMP DEBUG — remove once all slots confirmed working
-    error_log( '[ad-slot] slot=' . $slot . ' | source page_id=' . $source );
-
     if ( ! $source ) {
-        error_log( '[ad-slot] WARNING: could not resolve source page for slot=' . $slot );
         return;
     }
 
@@ -50,10 +46,6 @@ function render_ad_slot( $args = array() ) {
     $url         = get_field( $slot . '_ad_url',         $source );
     $description = get_field( $slot . '_ad_description', $source );
     $cta_text    = get_field( $slot . '_ad_cta_text',    $source );
-
-    // TEMP DEBUG — remove once confirmed working
-    error_log( '[ad-slot] ' . $slot . '_ad_enabled = ' . var_export( $enabled, true ) );
-    error_log( '[ad-slot] ' . $slot . '_ad_image   = ' . ( ! empty( $image['url'] ) ? $image['url'] : 'empty' ) );
 
     // Respect the enabled toggle; also skip if there is nothing to display.
     if ( ! $enabled || ( ! $title && empty( $image ) ) ) {
@@ -65,14 +57,7 @@ function render_ad_slot( $args = array() ) {
     $img_alt   = $has_image && ! empty( $image['alt'] ) ? $image['alt'] : $title;
     ?>
 
-    <?php
-    /*
-     * MARKETING NOTE:
-     * To update this ad, visit:
-     *   WP Admin → Settings → Advertisement Settings → <?php echo ucfirst( $slot ); ?> tab
-     * Toggle "Ad Enabled" on/off or swap content there without touching code.
-     */
-    ?>
+
     <aside
         class="ad-slot ad-slot--<?php echo esc_attr( $slot ); ?><?php echo $class; ?>"
         aria-label="Sponsored content"

@@ -71,9 +71,9 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
         'title'  => 'Homepage Featured Articles',
         'fields' => array(
             array(
-                'key'           => 'field_featured_post_1',
+                'key'           => 'field_featured_article_1',
                 'label'         => 'Featured Article 1',
-                'name'          => 'featured_post_1',
+                'name'          => 'featured_article_1',
                 'type'          => 'post_object',
                 'instructions'  => 'First slide in the homepage carousel.',
                 'post_type'     => array( 'post' ),
@@ -82,9 +82,9 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
                 'allow_null'    => 1,
             ),
             array(
-                'key'           => 'field_featured_post_2',
+                'key'           => 'field_featured_article_2',
                 'label'         => 'Featured Article 2',
-                'name'          => 'featured_post_2',
+                'name'          => 'featured_article_2',
                 'type'          => 'post_object',
                 'instructions'  => 'Second slide in the homepage carousel.',
                 'post_type'     => array( 'post' ),
@@ -93,9 +93,9 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
                 'allow_null'    => 1,
             ),
             array(
-                'key'           => 'field_featured_post_3',
+                'key'           => 'field_featured_article_3',
                 'label'         => 'Featured Article 3',
-                'name'          => 'featured_post_3',
+                'name'          => 'featured_article_3',
                 'type'          => 'post_object',
                 'instructions'  => 'Third slide in the homepage carousel.',
                 'post_type'     => array( 'post' ),

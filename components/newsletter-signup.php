@@ -21,7 +21,14 @@ function render_newsletter_signup_section( $args = array() ) {
             <p><?php echo esc_html( $args['text'] ); ?></p>
         </div>
         <div class="newsletter-form">
-            <?php echo do_shortcode('[mc4wp_form]'); ?>
+            <?php
+            $form_output = do_shortcode( '[mc4wp_form]' );
+            if ( $form_output ) {
+                echo $form_output;
+            } else {
+                echo '<p class="newsletter-form__unavailable" style="color:rgba(255,255,255,0.75);font-size:0.85rem;margin:0;">Newsletter sign-up coming soon.</p>';
+            }
+            ?>
         </div>
     </section>
     <?php

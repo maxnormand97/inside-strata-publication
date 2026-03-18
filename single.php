@@ -20,7 +20,7 @@ require_once get_template_directory() . '/components/sidebar-ad.php';
     ?>
     <div class="single-layout"><!-- open: two-column layout -->
 
-    <main class="single-main"><!-- open: article column -->
+    <div class="single-main"><!-- open: article column -->
 
     <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
@@ -107,7 +107,7 @@ require_once get_template_directory() . '/components/sidebar-ad.php';
     </section>
     <?php endif; wp_reset_postdata(); endif; ?>
 
-    </main><!-- /single-main -->
+    </div><!-- /single-main -->
 
     <aside class="single-sidebar">
         <?php
