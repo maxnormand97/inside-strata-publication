@@ -198,6 +198,80 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
 }
 
 /* ============================================
+   ACF — INLINE AD (ACF Free)
+   Fields are attached to the "Ad Settings" page,
+   same page as the sidebar ad.
+
+   HOW TO USE:
+   1. In WP Admin go to Pages and open "Ad Settings".
+   2. Scroll down to the "Article Inline Ad" meta box.
+   3. Fill in the inline ad fields and toggle Ad Enabled on.
+   4. Click Update — the inline ad updates on all articles.
+   ============================================ */
+if ( function_exists( 'acf_add_local_field_group' ) ) {
+
+    acf_add_local_field_group( array(
+        'key'    => 'group_strata_inline_ad',
+        'title'  => 'Article Inline Ad',
+        'fields' => array(
+            array(
+                'key'          => 'field_strata_inline_ad_enabled',
+                'label'        => 'Ad Enabled',
+                'name'         => 'inline_ad_enabled',
+                'type'         => 'true_false',
+                'instructions' => 'Toggle on to show this ad inside all article pages.',
+                'ui'           => 1,
+                'default_value'=> 0,
+            ),
+            array(
+                'key'          => 'field_strata_inline_ad_title',
+                'label'        => 'Ad Title / Sponsor Name',
+                'name'         => 'inline_ad_title',
+                'type'         => 'text',
+            ),
+            array(
+                'key'           => 'field_strata_inline_ad_image',
+                'label'         => 'Ad Image',
+                'name'          => 'inline_ad_image',
+                'type'          => 'image',
+                'instructions'  => 'Recommended: 440 × 280 px.',
+                'return_format' => 'array',
+                'preview_size'  => 'medium',
+            ),
+            array(
+                'key'          => 'field_strata_inline_ad_url',
+                'label'        => 'Ad Destination URL',
+                'name'         => 'inline_ad_url',
+                'type'         => 'url',
+            ),
+            array(
+                'key'          => 'field_strata_inline_ad_description',
+                'label'        => 'Ad Description (optional)',
+                'name'         => 'inline_ad_description',
+                'type'         => 'textarea',
+                'rows'         => 2,
+            ),
+            array(
+                'key'          => 'field_strata_inline_ad_cta_text',
+                'label'        => 'Call-to-Action Text (optional)',
+                'name'         => 'inline_ad_cta_text',
+                'type'         => 'text',
+                'instructions' => 'e.g. "Learn More" or "Visit Site"',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param'    => 'page_slug',
+                    'operator' => '==',
+                    'value'    => 'ad-settings',
+                ),
+            ),
+        ),
+    ) );
+}
+
+/* ============================================
    ACF — ADVERTISEMENT SLOTS (ACF Free)
    Fields are attached to the static front page
    (Home page editor). No options pages needed.
