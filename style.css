@@ -1025,7 +1025,7 @@ a.ad-slot__inner:hover .ad-slot__image {
 }
 
 .ad-slot--footer .ad-slot__inner {
-    min-height: 160px;
+    height: 200px; /* fixed cap — mirrors homepage strategy; prevents image from dictating height */
 }
 
 .ad-slot--footer .ad-slot__image-wrap {
@@ -1080,6 +1080,20 @@ a.ad-slot__inner:hover .ad-slot__image {
     font-size: 0.98rem;
 }
 
+/* ── Tablet — reduce height for homepage + footer banner ads ─
+   Keeps proportions comfortable on 769px–992px screens without
+   fully collapsing to the mobile stacked layout.
+   ─────────────────────────────────────────────────────────── */
+@media (min-width: 769px) and (max-width: 992px) {
+    .ad-slot--homepage .ad-slot__inner {
+        height: 200px;
+    }
+
+    .ad-slot--footer .ad-slot__inner {
+        height: 180px;
+    }
+}
+
 /* ── Responsive — collapse to stacked on mobile ─ */
 @media (max-width: 992px) {
     .single-layout {
@@ -1122,8 +1136,7 @@ a.ad-slot__inner:hover .ad-slot__image {
     .ad-slot--homepage .ad-slot__inner,
     .ad-slot--footer .ad-slot__inner,
     .ad-slot--inline .ad-slot__inner {
-        min-height: unset;
-        height: auto;
+        height: auto; /* release fixed height so stacked image+content flows naturally */
     }
 }
 
