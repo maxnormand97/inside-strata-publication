@@ -30,8 +30,15 @@
                     <h4>Connect</h4>
                     <ul>
                         <li><a href="<?php echo esc_url( home_url('/newsletter') ); ?>">Newsletter</a></li>
-                        <li><a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-                        <li><a href="mailto:editor@stratareview.com">Email Us</a></li>
+                        <?php
+                        // Set this to the publication's LinkedIn company page URL when ready.
+                        // e.g. 'https://www.linkedin.com/company/the-strata-review'
+                        // Leave empty to hide the link.
+                        $strata_linkedin_url = '';
+                        if ( ! empty( $strata_linkedin_url ) ) : ?>
+                        <li><a href="<?php echo esc_url( $strata_linkedin_url ); ?>" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                        <?php endif; ?>
+                        <li><a href="mailto:editor@stratareview.com.au">Email Us</a></li>
                     </ul>
                 </div>
             </div>

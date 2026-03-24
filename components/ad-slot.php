@@ -67,10 +67,13 @@ function render_ad_slot( $args = array() ) {
         <?php if ( $url_attr ) : ?>
         <a
             href="<?php echo $url_attr; ?>"
-            class="ad-slot__inner"
+            class="ad-slot__inner js-ad-link"
             target="_blank"
             rel="noopener nofollow sponsored"
             aria-label="<?php echo esc_attr( $title ); ?> — sponsored link, opens in new tab"
+            data-ad-slot="<?php echo esc_attr( $slot ); ?>"
+            data-ad-title="<?php echo esc_attr( $title ); ?>"
+            data-ad-url="<?php echo esc_url( $url ); ?>"
         >
         <?php else : ?>
         <div class="ad-slot__inner">
@@ -78,12 +81,20 @@ function render_ad_slot( $args = array() ) {
 
             <?php if ( $has_image ) : ?>
             <div class="ad-slot__image-wrap">
+                <?php if ( ! empty( $image['id'] ) ) : ?>
+                    <?php echo wp_get_attachment_image( (int) $image['id'], 'card-medium', false, array(
+                        'alt'     => $img_alt,
+                        'loading' => 'lazy',
+                        'class'   => 'ad-slot__image',
+                    ) ); ?>
+                <?php else : ?>
                 <img
                     src="<?php echo esc_url( $image['url'] ); ?>"
                     alt="<?php echo esc_attr( $img_alt ); ?>"
                     loading="lazy"
                     class="ad-slot__image"
                 >
+                <?php endif; ?>
             </div>
             <?php endif; ?>
 

@@ -37,23 +37,28 @@ get_header();
             <div class="about-grid__primary">
                 <h2>Our Mission</h2>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula
-                    justo at urna hendrerit, vel commodo eros fringilla. Pellentesque habitant
-                    morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                    Suspendisse potential venenatis ligula, nec malesuada libero tincidunt at.
+                    We are a dedicated online publication created for the strata community&mdash;bringing
+                    together the people, ideas, and conversations shaping this evolving sector.
                 </p>
                 <p>
-                    Curabitur euismod nulla a lorem dignissim, vel condimentum risus sodales.
-                    Maecenas suscipit felis quis nisl finibus, vel condimentum lectus ullamcorper.
-                    Duis fermentum nisi non augue hendrerit, in commodo nunc vehicula. Nam
-                    tincidunt sapien a ante vehicula, at efficitur felis accumsan.
+                    Our mission is simple: to inform, connect, and elevate the strata industry. We deliver
+                    timely news, expert insights, and practical guidance for owners, committees, strata
+                    managers, developers, and service providers alike. Whether it&rsquo;s legislative changes,
+                    emerging trends, or on-the-ground challenges, we aim to provide clear, relevant coverage
+                    that helps our readers stay ahead.
                 </p>
                 <p>
-                    Vivamus lacinia odio vitae vestibulum vestibulum. Donec in efficitur leo,
-                    in commodo orci. Proin eget tortor risus. Praesent sapien massa, convallis
-                    a pellentesque nec, egestas non nisi. Curabitur non nulla sit amet nisl
-                    tempus convallis quis ac lectus.
+                    Strata living is becoming an increasingly important part of modern life. As communities
+                    grow denser and more complex, the need for reliable information and thoughtful dialogue
+                    has never been greater. We exist to support that need&mdash;offering a platform where
+                    industry voices are heard, best practices are shared, and important issues are explored
+                    in depth.
                 </p>
+                <p>
+                    Independent, accessible, and community-focused, our publication is committed to
+                    high-quality journalism that reflects the realities of strata living and management today.
+                </p>
+                <p><em>We&rsquo;re not just reporting on the industry&mdash;we&rsquo;re part of its ongoing story.</em></p>
             </div>
 
             <!-- Right: What We Cover card -->
@@ -77,64 +82,15 @@ get_header();
     </section>
 
     <!-- =========================================================
-         WHO WE ARE (full-width + team grid)
+         CTA — newsletter signup
          ========================================================= -->
-    <section class="about-section about-section--full" aria-label="Who we are">
-        <h2>Who We Are</h2>
-        <p>
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-            curae; Proin vel ante a orci tempus eleifend ut et magna. Lorem ipsum dolor sit
-            amet, consectetur adipiscing elit. Vivamus luctus urna sed urna ultricies ac
-            tempor dui sagittis.
-        </p>
-        <p>
-            In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla
-            fringilla purus at leo dignissim congue. Mauris elementum accumsan leo vel
-            tempor. Sit amet cursus nisl aliquam. Aliquam malesuada ex eget condimentum
-            venenatis. Nunc aliquet, angue in accumsan nec, pulvinar vitae arcu.
-        </p>
-        <p>
-            Phasellus blandit leo ut odio. Nam sed est et nunc ullamcorper commodo vitae
-            in arcu. Fusce porta lorem at lectus semper eu tincidunt dolor luctus. Cum
-            sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-        </p>
-
-        <div class="about-team-grid" aria-label="Team members">
-
-            <div class="about-team-card">
-                <div class="about-team-card__avatar" aria-hidden="true"></div>
-                <p class="about-team-card__name">Alexandra Morris</p>
-                <p class="about-team-card__role">Editor in Chief</p>
-            </div>
-
-            <div class="about-team-card">
-                <div class="about-team-card__avatar" aria-hidden="true"></div>
-                <p class="about-team-card__name">James Calloway</p>
-                <p class="about-team-card__role">Senior Correspondent</p>
-            </div>
-
-            <div class="about-team-card">
-                <div class="about-team-card__avatar" aria-hidden="true"></div>
-                <p class="about-team-card__name">Priya Nair</p>
-                <p class="about-team-card__role">Policy &amp; Finance Reporter</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- =========================================================
-         CTA
-         ========================================================= -->
-    <section class="about-cta" aria-label="Newsletter call to action">
-        <div class="about-cta__inner">
-            <h2 class="about-cta__heading">Stay Informed</h2>
-            <p class="about-cta__text">
-                Get the latest strata news, analysis, and insights delivered straight
-                to your inbox, free every week.
-            </p>
-            <a href="#" class="about-cta__btn">Subscribe to our newsletter</a>
-        </div>
-    </section>
+    <?php
+    require_once get_template_directory() . '/components/newsletter-signup.php';
+    render_newsletter_signup_section( array(
+        'heading' => 'Stay Informed',
+        'text'    => 'Get the latest strata news, analysis, and insights delivered straight to your inbox, free every week.',
+    ) );
+    ?>
 
 </div><!-- .container -->
 

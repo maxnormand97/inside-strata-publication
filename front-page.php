@@ -71,7 +71,10 @@
             >
                 <a href="<?php echo esc_url( $slide['permalink'] ); ?>">
                     <?php if ( $slide['has_thumb'] ) : ?>
-                        <?php echo get_the_post_thumbnail( $slide['id'], 'hero-large', array( 'class' => 'hero-image' ) ); ?>
+                        <?php echo get_the_post_thumbnail( $slide['id'], 'hero-large', array(
+                            'class'   => 'hero-image',
+                            'loading' => $i === 0 ? 'eager' : 'lazy',
+                        ) ); ?>
                     <?php endif; ?>
                     <div class="hero-content">
                         <?php if ( ! empty( $slide['categories'] ) ) : ?>
