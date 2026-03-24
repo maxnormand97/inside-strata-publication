@@ -55,6 +55,22 @@ function inside_strata_excerpt_more($more) {
 add_filter('excerpt_more', 'inside_strata_excerpt_more');
 
 /* ============================================
+   CANONICAL EMAIL ADDRESSES
+   Update these in one place to change all email
+   links across the footer and contact page.
+   ============================================ */
+define( 'STRATA_EMAIL_EDITORIAL',   'editor@stratareview.com.au' );
+define( 'STRATA_EMAIL_ADVERTISING', 'advertise@stratareview.com.au' );
+define( 'STRATA_EMAIL_GENERAL',     'hello@stratareview.com.au' );
+
+/* ============================================
+   SECURITY: Disable XML-RPC
+   Not used by this theme; disabling it reduces
+   the available attack surface.
+   ============================================ */
+add_filter( 'xmlrpc_enabled', '__return_false' );
+
+/* ============================================
    ACF — HOMEPAGE FEATURED ARTICLES (ACF Free)
    Fields appear in the Home page editor.
 

@@ -98,6 +98,9 @@ require_once get_template_directory() . '/components/sidebar-ad.php';
                             </a>
                         <?php endif; ?>
                         <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                        <div class="card-meta">
+                            <time datetime="<?php echo esc_attr( get_the_date('c') ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
+                        </div>
                         <p class="card-excerpt"><?php echo esc_html(get_the_excerpt()); ?></p>
                         <a class="read-more" href="<?php the_permalink(); ?>">Read More &rarr;</a>
                     </div>

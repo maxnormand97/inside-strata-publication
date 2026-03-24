@@ -13,7 +13,7 @@ function render_sponsored_card( $brand ) {
         <a href="<?php echo esc_url( $brand['url'] ); ?>" target="_blank" rel="noopener noreferrer">
             <?php if ( ! empty( $brand['logo'] ) ) : ?>
                 <div class="sponsored-logo">
-                    <img src="<?php echo esc_url( $brand['logo'] ); ?>" alt="<?php echo esc_attr( $brand['name'] ); ?> logo">
+                    <img src="<?php echo esc_url( $brand['logo'] ); ?>" alt="<?php echo esc_attr( $brand['name'] ); ?> logo" loading="lazy">
                 </div>
             <?php endif; ?>
             <div class="sponsored-content">

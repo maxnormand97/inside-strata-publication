@@ -192,7 +192,7 @@ get_header();
                 marketing purposes. You may unsubscribe at any time by clicking the
                 &ldquo;unsubscribe&rdquo; link included in every email we send, or by
                 contacting us at
-                <a href="mailto:hello@stratareview.com.au">hello@stratareview.com.au</a>.
+                <a href="mailto:<?php echo esc_attr( STRATA_EMAIL_GENERAL ); ?>"><?php echo esc_html( STRATA_EMAIL_GENERAL ); ?></a>.
             </p>
         </section>
 
@@ -213,7 +213,7 @@ get_header();
             </ul>
             <p>
                 To exercise any of these rights, please contact us at
-                <a href="mailto:hello@stratareview.com.au">hello@stratareview.com.au</a>.
+                <a href="mailto:<?php echo esc_attr( STRATA_EMAIL_GENERAL ); ?>"><?php echo esc_html( STRATA_EMAIL_GENERAL ); ?></a>.
                 We will respond to your request within 30 calendar days.
             </p>
         </section>
@@ -243,7 +243,7 @@ get_header();
             <p>
                 If you believe a child has provided us with personal information without appropriate
                 consent, please contact us immediately at
-                <a href="mailto:hello@stratareview.com.au">hello@stratareview.com.au</a>
+                <a href="mailto:<?php echo esc_attr( STRATA_EMAIL_GENERAL ); ?>"><?php echo esc_html( STRATA_EMAIL_GENERAL ); ?></a>
                 and we will take appropriate action to remove that information.
             </p>
         </section>
@@ -271,7 +271,7 @@ get_header();
                 or how we handle your personal information, please contact us:
             </p>
             <ul>
-                <li><strong>Email:</strong> <a href="mailto:hello@stratareview.com.au">hello@stratareview.com.au</a></li>
+                <li><strong>Email:</strong> <a href="mailto:<?php echo esc_attr( STRATA_EMAIL_GENERAL ); ?>"><?php echo esc_html( STRATA_EMAIL_GENERAL ); ?></a></li>
                 <li><strong>Post:</strong> The Strata Review, Level 10, 123 Collins Street, Melbourne VIC 3000, Australia</li>
             </ul>
             <p>

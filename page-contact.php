@@ -88,15 +88,15 @@ get_header();
                 <ul class="contact-details-list">
                     <li>
                         <span class="contact-details-list__label">Editorial</span>
-                        <a href="mailto:editor@stratareview.com.au">editor@stratareview.com.au</a>
+                        <a href="mailto:<?php echo esc_attr( STRATA_EMAIL_EDITORIAL ); ?>"><?php echo esc_html( STRATA_EMAIL_EDITORIAL ); ?></a>
                     </li>
                     <li>
                         <span class="contact-details-list__label">Advertising</span>
-                        <a href="mailto:advertise@stratareview.com.au">advertise@stratareview.com.au</a>
+                        <a href="mailto:<?php echo esc_attr( STRATA_EMAIL_ADVERTISING ); ?>"><?php echo esc_html( STRATA_EMAIL_ADVERTISING ); ?></a>
                     </li>
                     <li>
                         <span class="contact-details-list__label">General</span>
-                        <a href="mailto:hello@stratareview.com.au">hello@stratareview.com.au</a>
+                        <a href="mailto:<?php echo esc_attr( STRATA_EMAIL_GENERAL ); ?>"><?php echo esc_html( STRATA_EMAIL_GENERAL ); ?></a>
                     </li>
                 </ul>
             </div>

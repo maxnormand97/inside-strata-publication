@@ -38,7 +38,7 @@
                         if ( ! empty( $strata_linkedin_url ) ) : ?>
                         <li><a href="<?php echo esc_url( $strata_linkedin_url ); ?>" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
                         <?php endif; ?>
-                        <li><a href="mailto:editor@stratareview.com.au">Email Us</a></li>
+                        <li><a href="mailto:<?php echo esc_attr( STRATA_EMAIL_EDITORIAL ); ?>">Email Us</a></li>
                     </ul>
                 </div>
             </div>
