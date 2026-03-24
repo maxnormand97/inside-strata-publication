@@ -37,10 +37,10 @@ require_once get_template_directory() . '/components/sidebar-ad.php';
             </a>
         <?php endif; ?>
 
-        <h1><?php the_title(); ?></h1>
+        <h1><?php echo esc_html( get_the_title() ); ?></h1>
 
         <div class="article-meta">
-            <span class="author">By <?php the_author(); ?></span>
+            <span class="author">By <?php echo esc_html( get_the_author() ); ?></span>
             <time datetime="<?php echo esc_attr(get_the_date('c')); ?>"><?php echo esc_html(get_the_date()); ?></time>
         </div>
 

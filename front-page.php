@@ -72,8 +72,9 @@
                 <a href="<?php echo esc_url( $slide['permalink'] ); ?>">
                     <?php if ( $slide['has_thumb'] ) : ?>
                         <?php echo get_the_post_thumbnail( $slide['id'], 'hero-large', array(
-                            'class'   => 'hero-image',
-                            'loading' => $i === 0 ? 'eager' : 'lazy',
+                            'class'         => 'hero-image',
+                            'loading'       => $i === 0 ? 'eager' : 'lazy',
+                            'fetchpriority' => $i === 0 ? 'high'  : 'auto',
                         ) ); ?>
                     <?php endif; ?>
                     <div class="hero-content">

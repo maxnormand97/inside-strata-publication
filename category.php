@@ -8,7 +8,7 @@
         <h1 class="category-archive__title"><?php single_cat_title(); ?></h1>
         <?php if ( category_description() ) : ?>
             <div class="category-archive__description">
-                <?php echo category_description(); ?>
+                <?php echo wp_kses_post( category_description() ); ?>
             </div>
         <?php endif; ?>
     </header>

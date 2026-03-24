@@ -9,7 +9,7 @@
                     $footer_logo_path = get_template_directory() . '/assets/images/logo-white.png';
                     $footer_logo_url  = get_template_directory_uri() . '/assets/images/logo-white.png';
                     if ( file_exists( $footer_logo_path ) ) : ?>
-                        <img src="<?php echo esc_url( $footer_logo_url ); ?>" alt="The Strata Review logo" class="footer-logo">
+                        <img src="<?php echo esc_url( $footer_logo_url ); ?>" alt="The Strata Review logo" class="footer-logo" width="320" height="80" loading="lazy">
                     <?php else : ?>
                         <span class="site-title footer-site-title">The Strata Review</span>
                     <?php endif; ?>

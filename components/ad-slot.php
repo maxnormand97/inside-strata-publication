@@ -32,8 +32,12 @@ function render_ad_slot( $args = array() ) {
     if ( in_array( $slot, array( 'homepage', 'footer' ), true ) ) {
         $source = (int) get_option( 'page_on_front' );
     } else {
-        $ad_settings_page = get_page_by_path( 'ad-settings' );
-        $source           = $ad_settings_page ? (int) $ad_settings_page->ID : 0;
+        static $ad_settings_id = null;
+        if ( null === $ad_settings_id ) {
+            $ad_settings_page = get_page_by_path( 'ad-settings' );
+            $ad_settings_id   = $ad_settings_page ? (int) $ad_settings_page->ID : 0;
+        }
+        $source = $ad_settings_id;
     }
 
     if ( ! $source ) {
@@ -66,7 +70,7 @@ function render_ad_slot( $args = array() ) {
 
         <?php if ( $url_attr ) : ?>
         <a
-            href="<?php echo $url_attr; ?>"
+            href="<?php echo esc_url( $url ); ?>"
             class="ad-slot__inner js-ad-link"
             target="_blank"
             rel="noopener nofollow sponsored"

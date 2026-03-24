@@ -44,6 +44,12 @@ function strata_review_enqueue_assets() {
 }
 add_action('wp_enqueue_scripts', 'strata_review_enqueue_assets');
 
+function strata_fonts_preconnect() {
+    echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
+    echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+}
+add_action( 'wp_head', 'strata_fonts_preconnect', 1 );
+
 function inside_strata_excerpt_length($length) {
     return 20;
 }

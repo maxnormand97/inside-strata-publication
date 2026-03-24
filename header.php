@@ -16,7 +16,7 @@
                 $logo_path = get_template_directory() . '/assets/images/logo.png';
                 $logo_url  = get_template_directory_uri() . '/assets/images/logo.png';
                 if ( file_exists( $logo_path ) ) : ?>
-                    <img class="site-logo" src="<?php echo esc_url( $logo_url ); ?>" alt="The Strata Review" />
+                    <img class="site-logo" src="<?php echo esc_url( $logo_url ); ?>" alt="The Strata Review" width="320" height="80" />
                 <?php else : ?>
                     <span class="site-title">The Strata Review</span>
                 <?php endif; ?>
