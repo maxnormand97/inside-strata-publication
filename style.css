@@ -2235,6 +2235,40 @@ a.ad-slot__inner:hover .ad-slot__image {
     color: #fff;
 }
 
+/* Form notices (success / error) */
+.contact-form__notice {
+    padding: 1rem 1.25rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+.contact-form__notice p { margin: 0; }
+.contact-form__notice--success {
+    background: #edf7ed;
+    border: 1px solid #a3d9a5;
+    color: #1e5c1e;
+}
+.contact-form__notice--error {
+    background: #fdf3f3;
+    border: 1px solid #f5c6c6;
+    color: #8b1c1c;
+}
+.contact-form__notice--error a {
+    color: #8b1c1c;
+    text-decoration: underline;
+}
+
+/* Honeypot: visually hidden from real users */
+.contact-form__hp {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
 /* Contact details list */
 .contact-details-list {
     list-style: none;

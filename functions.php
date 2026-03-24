@@ -438,3 +438,70 @@ if ( function_exists( 'acf_add_local_field_group' ) ) {
         ),
     ) );
 }
+
+/* ============================================
+   CONTACT FORM HANDLER
+   Processes submissions from components/contact-form.php.
+   Posts to admin-post.php with action=strata_contact.
+   ============================================ */
+function strata_handle_contact_form() {
+
+    // 1. Verify nonce.
+    $nonce = isset( $_POST['strata_contact_nonce'] )
+        ? sanitize_text_field( wp_unslash( $_POST['strata_contact_nonce'] ) )
+        : '';
+
+    if ( ! wp_verify_nonce( $nonce, 'strata_contact_submit' ) ) {
+        wp_die( 'Security check failed.', 'Forbidden', array( 'response' => 403 ) );
+    }
+
+    $contact_page = home_url( '/contact' );
+
+    // 2. Honeypot — redirect as success to avoid leaking the check to bots.
+    if ( ! empty( $_POST['cf_website'] ) ) {
+        wp_safe_redirect( add_query_arg( 'sent', '1', $contact_page ) );
+        exit;
+    }
+
+    // 3. Sanitize.
+    $name    = sanitize_text_field( wp_unslash( $_POST['cf_name']    ?? '' ) );
+    $email   = sanitize_email(      wp_unslash( $_POST['cf_email']   ?? '' ) );
+    $message = sanitize_textarea_field( wp_unslash( $_POST['cf_message'] ?? '' ) );
+
+    // 4. Validate.
+    if ( empty( $name ) || ! is_email( $email ) || empty( $message ) ) {
+        wp_safe_redirect( add_query_arg( 'error', 'validation', $contact_page ) );
+        exit;
+    }
+
+    // 5. Build mail.
+    // From is domain-based so the message passes SPF checks on the sending host.
+    // Reply-To uses the visitor's email so replies go directly to them.
+    // sanitize_text_field() already strips newlines from $name, but we strip
+    // again here as explicit defence against header injection.
+    $name_safe = str_replace( array( "\r", "\n" ), '', $name );
+
+    $to      = 'Madeleine Smart <editor@thestratareview.com.au>';
+    $subject = 'Contact enquiry from ' . $name_safe;
+    $body    = "Name: {$name_safe}\n"
+             . "Email: {$email}\n\n"
+             . "Message:\n{$message}\n";
+
+    $headers = array(
+        'From: The Strata Review <noreply@thestratareview.com.au>',
+        'Reply-To: ' . $name_safe . ' <' . $email . '>',
+        'Content-Type: text/plain; charset=UTF-8',
+    );
+
+    // 6. Send.
+    $sent = wp_mail( $to, $subject, $body, $headers );
+
+    if ( $sent ) {
+        wp_safe_redirect( add_query_arg( 'sent', '1', $contact_page ) );
+    } else {
+        wp_safe_redirect( add_query_arg( 'error', 'mail', $contact_page ) );
+    }
+    exit;
+}
+add_action( 'admin_post_nopriv_strata_contact', 'strata_handle_contact_form' );
+add_action( 'admin_post_strata_contact',        'strata_handle_contact_form' );

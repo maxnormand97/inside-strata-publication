@@ -22,14 +22,12 @@
                     <ul>
                         <li><a href="<?php echo esc_url( home_url('/about') ); ?>">About</a></li>
                         <li><a href="<?php echo esc_url( home_url('/contact') ); ?>">Contact</a></li>
-                        <li><a href="<?php echo esc_url( home_url('/advertise') ); ?>">Advertise</a></li>
                         <li><a href="<?php echo esc_url( home_url('/privacy-policy') ); ?>">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="footer-link-group">
                     <h4>Connect</h4>
                     <ul>
-                        <li><a href="<?php echo esc_url( home_url('/newsletter') ); ?>">Newsletter</a></li>
                         <?php
                         // Set this to the publication's LinkedIn company page URL when ready.
                         // e.g. 'https://www.linkedin.com/company/the-strata-review'
@@ -48,8 +46,6 @@
             <div class="footer-bottom-links">
                 <a href="<?php echo esc_url( home_url('/about') ); ?>">About</a>
                 <a href="<?php echo esc_url( home_url('/contact') ); ?>">Contact</a>
-                <a href="<?php echo esc_url( home_url('/advertise') ); ?>">Advertise</a>
-                <a href="<?php echo esc_url( home_url('/newsletter') ); ?>">Newsletter</a>
                 <a href="<?php echo esc_url( home_url('/privacy-policy') ); ?>">Privacy</a>
             </div>
         </div>
