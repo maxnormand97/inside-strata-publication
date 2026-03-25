@@ -149,9 +149,15 @@ p, li, blockquote {
 }
 
 .site-logo {
-    max-height: 54px;
+    height: 40px;
     width: auto;
     display: block;
+}
+
+.site-logo path,
+.site-logo rect,
+.site-logo polygon {
+    fill: #113189;
 }
 
 .site-title {
@@ -1185,9 +1191,15 @@ a.ad-slot__inner:hover .ad-slot__image {
 }
 
 .footer-logo {
-    max-height: 44px;
+    height: 36px;
     width: auto;
     display: block;
+}
+
+.footer-logo path,
+.footer-logo rect,
+.footer-logo polygon {
+    fill: #f2f2f2;
 }
 
 .footer-links-grid {

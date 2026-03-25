@@ -12,14 +12,16 @@
     <div class="container header-inner">
         <div class="site-branding">
             <a class="brand-link" href="<?php echo esc_url(home_url('/')); ?>" aria-label="The Strata Review Home">
-                <?php 
-                $logo_path = get_template_directory() . '/assets/images/logo.png';
-                $logo_url  = get_template_directory_uri() . '/assets/images/logo.png';
-                if ( file_exists( $logo_path ) ) : ?>
-                    <img class="site-logo" src="<?php echo esc_url( $logo_url ); ?>" alt="The Strata Review" width="320" height="80" />
-                <?php else : ?>
+                <?php
+                $logo_path = get_template_directory() . '/assets/images/logo.svg';
+                if ( file_exists( $logo_path ) ) {
+                    $logo_svg = file_get_contents( $logo_path ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+                    $logo_svg = preg_replace( '/<\?xml[^?]*\?>\s*/i', '', $logo_svg );
+                    $logo_svg = preg_replace( '/<svg\b/', '<svg class="site-logo" aria-hidden="true" focusable="false"', $logo_svg, 1 );
+                    echo $logo_svg; // phpcs:ignore WordPress.Security.EscapeOutput
+                } else { ?>
                     <span class="site-title">The Strata Review</span>
-                <?php endif; ?>
+                <?php } ?>
             </a>
         </div>
 

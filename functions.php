@@ -24,7 +24,7 @@ add_action('after_setup_theme', 'strata_review_setup');
 function strata_review_enqueue_assets() {
     wp_enqueue_style(
         'strata-review-google-fonts',
-        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Merriweather:wght@400;700&display=swap',
         array(),
         null
     );
@@ -49,6 +49,41 @@ function strata_fonts_preconnect() {
     echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
 }
 add_action( 'wp_head', 'strata_fonts_preconnect', 1 );
+
+/**
+ * Preload the first hero carousel image on the front page.
+ * This tells the browser to fetch the LCP image as early as possible,
+ * before the main stylesheet and image tags are parsed.
+ */
+function strata_preload_hero_image() {
+    if ( ! is_front_page() || ! function_exists( 'get_field' ) ) {
+        return;
+    }
+
+    $front_page_id = (int) get_option( 'page_on_front' );
+    $first_post    = get_field( 'featured_article_1', $front_page_id );
+
+    if ( ! ( $first_post instanceof WP_Post ) ) {
+        return;
+    }
+
+    $thumb_id = get_post_thumbnail_id( $first_post->ID );
+    if ( ! $thumb_id ) {
+        return;
+    }
+
+    $img_src = wp_get_attachment_image_src( $thumb_id, 'hero-large' );
+    if ( empty( $img_src[0] ) ) {
+        return;
+    }
+
+    $img_url    = esc_url( $img_src[0] );
+    $srcset_arr = wp_get_attachment_image_srcset( $thumb_id, 'hero-large' );
+    $srcset_str = $srcset_arr ? ' imagesrcset="' . esc_attr( $srcset_arr ) . '" imagesizes="100vw"' : '';
+
+    echo '<link rel="preload" as="image" href="' . $img_url . '"' . $srcset_str . '>' . "\n";
+}
+add_action( 'wp_head', 'strata_preload_hero_image', 2 );
 
 function inside_strata_excerpt_length($length) {
     return 20;

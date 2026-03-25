@@ -6,13 +6,15 @@
             <div class="footer-brand">
                 <a href="<?php echo esc_url( home_url('/') ); ?>" class="footer-logo-link">
                     <?php
-                    $footer_logo_path = get_template_directory() . '/assets/images/logo-white.png';
-                    $footer_logo_url  = get_template_directory_uri() . '/assets/images/logo-white.png';
-                    if ( file_exists( $footer_logo_path ) ) : ?>
-                        <img src="<?php echo esc_url( $footer_logo_url ); ?>" alt="The Strata Review logo" class="footer-logo" width="320" height="80" loading="lazy">
-                    <?php else : ?>
+                    $footer_logo_path = get_template_directory() . '/assets/images/logo-white.svg';
+                    if ( file_exists( $footer_logo_path ) ) {
+                        $footer_svg = file_get_contents( $footer_logo_path ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+                        $footer_svg = preg_replace( '/<\?xml[^?]*\?>\s*/i', '', $footer_svg );
+                        $footer_svg = preg_replace( '/<svg\b/', '<svg class="footer-logo" role="img" aria-label="The Strata Review"', $footer_svg, 1 );
+                        echo $footer_svg; // phpcs:ignore WordPress.Security.EscapeOutput
+                    } else { ?>
                         <span class="site-title footer-site-title">The Strata Review</span>
-                    <?php endif; ?>
+                    <?php } ?>
                 </a>
                 <p>The Strata Review delivers news, insights, and updates across the strata sector.</p>
             </div>

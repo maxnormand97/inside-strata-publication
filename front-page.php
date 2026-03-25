@@ -130,7 +130,7 @@
                 <article class="article-card">
                     <?php if ( has_post_thumbnail() ) : ?>
                         <a href="<?php the_permalink(); ?>">
-                            <?php the_post_thumbnail('card-medium', array('class' => 'card-image')); ?>
+                            <?php the_post_thumbnail('card-medium', array('class' => 'card-image', 'loading' => 'lazy')); ?>
                         </a>
                     <?php endif; ?>
                     <div class="card-body">
@@ -215,7 +215,7 @@
             <article class="spotlight-primary">
                 <?php if ( $sp['has_thumb'] ) : ?>
                     <a href="<?php echo esc_url($sp['permalink']); ?>">
-                        <?php echo get_the_post_thumbnail($sp['id'], 'card-medium', array('class' => 'card-image')); ?>
+                        <?php echo get_the_post_thumbnail($sp['id'], 'card-medium', array('class' => 'card-image', 'loading' => 'lazy')); ?>
                     </a>
                 <?php endif; ?>
                 <div class="card-body">
@@ -237,7 +237,7 @@
                 <article class="spotlight-secondary">
                     <?php if ( $ss['has_thumb'] ) : ?>
                         <a href="<?php echo esc_url($ss['permalink']); ?>">
-                            <?php echo get_the_post_thumbnail($ss['id'], 'card-medium', array('class' => 'card-image')); ?>
+                            <?php echo get_the_post_thumbnail($ss['id'], 'card-medium', array('class' => 'card-image', 'loading' => 'lazy')); ?>
                         </a>
                     <?php endif; ?>
                     <div class="card-body">
