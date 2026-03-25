@@ -3,6 +3,15 @@
 <div class="container">
 
     <?php
+    /*
+     * Homepage H1 — visually hidden, required for SEO.
+     * Yoast handles the <title> tag; this provides the in-page H1
+     * signal for crawlers without altering the visual design.
+     */
+    ?>
+    <h1 class="screen-reader-text"><?php bloginfo( 'name' ); ?></h1>
+
+    <?php
     /* =========================================================
        HERO CAROUSEL — ACF-managed featured articles
        ─────────────────────────────────────────────────────────
@@ -71,11 +80,16 @@
             >
                 <a href="<?php echo esc_url( $slide['permalink'] ); ?>">
                     <?php if ( $slide['has_thumb'] ) : ?>
-                        <?php echo get_the_post_thumbnail( $slide['id'], 'hero-large', array(
+                        <?php
+                        $hero_thumb_id  = get_post_thumbnail_id( $slide['id'] );
+                        $hero_thumb_alt = trim( get_post_meta( $hero_thumb_id, '_wp_attachment_image_alt', true ) );
+                        echo get_the_post_thumbnail( $slide['id'], 'hero-large', array(
                             'class'         => 'hero-image',
+                            'alt'           => $hero_thumb_alt ?: $slide['title'],
                             'loading'       => $i === 0 ? 'eager' : 'lazy',
                             'fetchpriority' => $i === 0 ? 'high'  : 'auto',
-                        ) ); ?>
+                        ) );
+                        ?>
                     <?php endif; ?>
                     <div class="hero-content">
                         <?php if ( ! empty( $slide['categories'] ) ) : ?>

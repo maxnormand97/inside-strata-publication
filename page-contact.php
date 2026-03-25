@@ -52,6 +52,7 @@ get_header();
                         <span class="contact-details-list__label">Editorial</span>
                         <a href="mailto:<?php echo esc_attr( STRATA_EMAIL_EDITORIAL ); ?>"><?php echo esc_html( STRATA_EMAIL_EDITORIAL ); ?></a>
                     </li>
+                </ul>
             </div>
         </aside>
 

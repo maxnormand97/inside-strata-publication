@@ -27,7 +27,14 @@ require_once get_template_directory() . '/components/sidebar-ad.php';
     <article class="single-article">
 
         <?php if ( has_post_thumbnail() ) : ?>
-            <?php the_post_thumbnail('hero-large', array('class' => 'single-hero-image')); ?>
+            <?php
+            $thumb_id  = get_post_thumbnail_id();
+            $thumb_alt = trim( get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) );
+            the_post_thumbnail( 'hero-large', array(
+                'class' => 'single-hero-image',
+                'alt'   => $thumb_alt ?: get_the_title(),
+            ) );
+            ?>
         <?php endif; ?>
 
         <?php $categories = get_the_category(); ?>
