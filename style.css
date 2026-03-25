@@ -463,7 +463,7 @@ p, li, blockquote {
 
 .carousel-btn {
     position: absolute;
-    top: 50%;
+    top: 40%;
     transform: translateY(-50%);
     z-index: 10;
     display: flex;
@@ -489,6 +489,7 @@ p, li, blockquote {
     transform: translateY(-50%) scale(1.08);
 }
 
+
 .carousel-btn--prev { left: 1.25rem; }
 .carousel-btn--next { right: 1.25rem; }
 
@@ -505,6 +506,7 @@ p, li, blockquote {
 }
 
 .carousel-dot {
+    position: relative; /* needed for the touch-target pseudo-element */
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -513,6 +515,13 @@ p, li, blockquote {
     cursor: pointer;
     padding: 0;
     transition: background 0.2s ease, transform 0.2s ease;
+}
+
+/* Expand the tappable hit area to 44 × 44 px without changing the visual */
+.carousel-dot::before {
+    content: '';
+    position: absolute;
+    inset: -18px;
 }
 
 .carousel-dot.is-active,
@@ -1620,7 +1629,18 @@ a.ad-slot__inner:hover .ad-slot__image {
     .carousel-btn {
         width: 36px;
         height: 36px;
+        /* Move to top of carousel so buttons don't overlap the article title */
+        top: 1rem;
+        transform: none;
     }
+
+    .carousel-btn:hover,
+    .carousel-btn:focus-visible {
+        transform: scale(1.08);
+    }
+
+    .carousel-btn--prev { left: 1.25rem; }
+    .carousel-btn--next { right: 1.25rem; }
 
     .carousel-dots {
         right: 1.25rem;

@@ -143,7 +143,7 @@ get_header();
                 <li>Personalise content and advertising</li>
             </ul>
             <p>
-                You can manage cookies through your browser settings.
+                You can manage your cookie preferences through the cookie consent banner on our website, or via your browser settings.
             </p>
         </section>
 

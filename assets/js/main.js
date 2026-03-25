@@ -48,10 +48,22 @@ document.addEventListener('DOMContentLoaded', function () {
         var timer    = null;
         var DELAY    = 6000; // ms between auto-advances
 
+        // Remove inactive slides from the tab order on load
+        slides.forEach(function (slide, i) {
+            if (i !== 0) {
+                slide.querySelectorAll('a, button').forEach(function (el) {
+                    el.setAttribute('tabindex', '-1');
+                });
+            }
+        });
+
         function activate(index) {
-            // Deactivate current slide
+            // Deactivate current slide: hide from AT and remove from tab order
             slides[current].classList.remove('is-active');
             slides[current].setAttribute('aria-hidden', 'true');
+            slides[current].querySelectorAll('a, button').forEach(function (el) {
+                el.setAttribute('tabindex', '-1');
+            });
             if (dots[current]) {
                 dots[current].classList.remove('is-active');
                 dots[current].setAttribute('aria-selected', 'false');
@@ -61,6 +73,10 @@ document.addEventListener('DOMContentLoaded', function () {
             current = (index + total) % total;
             slides[current].classList.add('is-active');
             slides[current].setAttribute('aria-hidden', 'false');
+            // Restore focusability for the newly active slide
+            slides[current].querySelectorAll('a, button').forEach(function (el) {
+                el.removeAttribute('tabindex');
+            });
             if (dots[current]) {
                 dots[current].classList.add('is-active');
                 dots[current].setAttribute('aria-selected', 'true');

@@ -78,7 +78,7 @@
                 aria-label="Slide <?php echo esc_attr( $i + 1 ); ?> of <?php echo esc_attr( $slide_count ); ?>"
                 aria-hidden="<?php echo $i === 0 ? 'false' : 'true'; ?>"
             >
-                <a href="<?php echo esc_url( $slide['permalink'] ); ?>">
+                <a href="<?php echo esc_url( $slide['permalink'] ); ?>"<?php echo $i !== 0 ? ' tabindex="-1"' : ''; ?>>
                     <?php if ( $slide['has_thumb'] ) : ?>
                         <?php
                         $hero_thumb_id  = get_post_thumbnail_id( $slide['id'] );
@@ -106,6 +106,10 @@
         </div><!-- /.carousel-track -->
 
         <?php if ( $slide_count > 1 ) : ?>
+        <!-- Prev / Next buttons -->
+        <button class="carousel-btn carousel-btn--prev" type="button" aria-label="Previous slide">&#8249;</button>
+        <button class="carousel-btn carousel-btn--next" type="button" aria-label="Next slide">&#8250;</button>
+
         <!-- Dot navigation -->
         <div class="carousel-dots" role="tablist" aria-label="Featured article slides">
             <?php for ( $i = 0; $i < $slide_count; $i++ ) : ?>
