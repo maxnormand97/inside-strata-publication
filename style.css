@@ -506,27 +506,34 @@ p, li, blockquote {
 }
 
 .carousel-dot {
-    position: relative; /* needed for the touch-target pseudo-element */
+    /* Real 44 × 44 px button so Lighthouse registers a sufficient touch target */
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+/* Visual dot — 8 px circle centred inside the button */
+.carousel-dot::after {
+    content: '';
     width: 8px;
     height: 8px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.45);
-    border: none;
-    cursor: pointer;
-    padding: 0;
     transition: background 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0;
 }
 
-/* Expand the tappable hit area to 44 × 44 px without changing the visual */
-.carousel-dot::before {
-    content: '';
-    position: absolute;
-    inset: -18px;
-}
-
-.carousel-dot.is-active,
-.carousel-dot:hover,
-.carousel-dot:focus-visible {
+.carousel-dot.is-active::after,
+.carousel-dot:hover::after,
+.carousel-dot:focus-visible::after {
     background: #fff;
     transform: scale(1.3);
 }
