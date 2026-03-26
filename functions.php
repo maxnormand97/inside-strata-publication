@@ -112,6 +112,21 @@ define( 'STRATA_EMAIL_GENERAL',     'hello@stratareview.com.au' );
 add_filter( 'xmlrpc_enabled', '__return_false' );
 
 /* ============================================
+   SECURITY: Remove REST API user endpoints
+   for unauthenticated / non-admin requests.
+   Admins (who have list_users) are unaffected,
+   so Gutenberg and all other endpoints continue
+   to work normally.
+   ============================================ */
+add_filter( 'rest_endpoints', function( $endpoints ) {
+    if ( ! current_user_can( 'list_users' ) ) {
+        unset( $endpoints['/wp/v2/users'] );
+        unset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
+    }
+    return $endpoints;
+} );
+
+/* ============================================
    ACF — HOMEPAGE FEATURED ARTICLES (ACF Free)
    Fields appear in the Home page editor.
 

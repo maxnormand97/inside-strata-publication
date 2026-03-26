@@ -15,17 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     /* ============================================
-       NEWSLETTER REDIRECT
-       ============================================ */
-    var newsletterForm = document.getElementById('newsletter-redirect-form');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            window.location.href = 'https://eepurl.com/jB4cyU';
-        });
-    }
-
-    /* ============================================
        HERO CAROUSEL
        EDITORIAL: Manage carousel articles from
        Settings › Homepage Settings in WP Admin.

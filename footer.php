@@ -16,7 +16,7 @@
                         <span class="site-title footer-site-title">The Strata Review</span>
                     <?php } ?>
                 </a>
-                <p>The Strata Review delivers news, insights, and updates across the strata sector.</p>
+                <p class="footer-tagline">Trusted reporting on Australia&rsquo;s strata sector</p>
             </div>
             <div class="footer-links-grid">
                 <div class="footer-link-group">

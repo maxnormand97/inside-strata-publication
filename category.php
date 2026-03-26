@@ -97,7 +97,7 @@
                     <a class="read-more" href="<?php the_permalink(); ?>">Read More &rarr;</a>
                 </div>
             </article>
-        <?php endforeach; ?>
+        <?php endforeach; wp_reset_postdata(); ?>
     </div><!-- /.article-grid -->
     <?php endif; ?>
 
@@ -137,9 +137,17 @@
 
     <?php wp_reset_postdata(); ?>
 
-    <div class="pagination">
-        <?php the_posts_pagination(); ?>
-    </div>
+    <?php
+    $pagination = get_the_posts_pagination( array(
+        'mid_size'  => 2,
+        'prev_text' => __( '&larr; Newer', 'inside-strata-theme' ),
+        'next_text' => __( 'Older &rarr;', 'inside-strata-theme' ),
+    ) );
+    if ( $pagination ) : ?>
+    <nav class="pagination" aria-label="<?php esc_attr_e( 'Archive pages', 'inside-strata-theme' ); ?>">
+        <?php echo $pagination; ?>
+    </nav>
+    <?php endif; ?>
 
     <?php else : ?>
         <p class="category-archive__empty">No posts found in this category.</p>
