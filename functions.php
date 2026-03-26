@@ -30,7 +30,7 @@ function strata_review_enqueue_assets() {
     );
     wp_enqueue_style(
         'strata-review-style',
-        get_stylesheet_uri(),
+        get_template_directory_uri() . '/assets/css/style.min.css',
         array('strata-review-google-fonts'),
         wp_get_theme()->get('Version')
     );
