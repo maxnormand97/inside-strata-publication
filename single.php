@@ -31,8 +31,10 @@ require_once get_template_directory() . '/components/sidebar-ad.php';
             $thumb_id  = get_post_thumbnail_id();
             $thumb_alt = trim( get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) );
             the_post_thumbnail( 'hero-large', array(
-                'class' => 'single-hero-image',
-                'alt'   => $thumb_alt ?: get_the_title(),
+                'class'         => 'single-hero-image',
+                'alt'           => $thumb_alt ?: get_the_title(),
+                'loading'       => 'eager',
+                'fetchpriority' => 'high',
             ) );
             ?>
         <?php endif; ?>

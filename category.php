@@ -46,7 +46,7 @@
     <article <?php post_class( 'category-featured-post' ); ?>>
         <?php if ( has_post_thumbnail() ) : ?>
             <a href="<?php the_permalink(); ?>" class="category-featured-post__image-link" tabindex="-1" aria-hidden="true">
-                <?php the_post_thumbnail( 'card-medium', array( 'class' => 'category-featured-post__image' ) ); ?>
+                <?php the_post_thumbnail( 'hero-large', array( 'class' => 'category-featured-post__image' ) ); ?>
             </a>
         <?php endif; ?>
         <div class="category-featured-post__body">

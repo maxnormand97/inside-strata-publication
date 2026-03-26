@@ -30,14 +30,9 @@
                 <div class="footer-link-group">
                     <h4>Connect</h4>
                     <ul>
-                        <?php
-                        // Set this to the publication's LinkedIn company page URL when ready.
-                        // e.g. 'https://www.linkedin.com/company/the-strata-review'
-                        // Leave empty to hide the link.
-                        $strata_linkedin_url = '';
-                        if ( ! empty( $strata_linkedin_url ) ) : ?>
-                        <li><a href="<?php echo esc_url( $strata_linkedin_url ); ?>" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-                        <?php endif; ?>
+                        <li><a href="https://www.linkedin.com/company/thestratareview" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                        <li><a href="https://www.instagram.com/thestratareview_au" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                        <li><a href="https://www.facebook.com/thestratareview" target="_blank" rel="noopener noreferrer">Facebook</a></li>
                         <li><a href="mailto:<?php echo esc_attr( STRATA_EMAIL_EDITORIAL ); ?>">Email Us</a></li>
                     </ul>
                 </div>
