@@ -507,6 +507,9 @@ p, li, blockquote {
 
 .carousel-dot {
     /* Real 44 × 44 px button so Lighthouse registers a sufficient touch target */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 44px;
     height: 44px;
     border-radius: 50%;
@@ -520,6 +523,7 @@ p, li, blockquote {
 /* Visual dot — 8 px circle centred inside the button */
 .carousel-dot::after {
     content: '';
+    display: block;
     width: 8px;
     height: 8px;
     border-radius: 50%;
