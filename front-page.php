@@ -130,11 +130,10 @@
 
     <?php
     /* =========================================================
-       LATEST NEWS — 6 posts, excluding the hero posts
+       LATEST NEWS — 6 most recent posts
        ========================================================= */
     $latest_query = new WP_Query(array(
         'posts_per_page'      => 6,
-        'post__not_in'        => $featured_ids,
         'ignore_sticky_posts' => 1,
     ));
     ?>
