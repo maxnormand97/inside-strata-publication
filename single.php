@@ -1,13 +1,6 @@
 <?php get_header(); ?>
 
-<?php
-/*
- * Load the ad-slot component once so render_ad_slot() is available
- * to both the inline placement and the sidebar placement below.
- */
-require_once get_template_directory() . '/components/ad-slot.php';
-require_once get_template_directory() . '/components/sidebar-ad.php';
-?>
+<?php require_once get_template_directory() . '/components/sidebar-ad.php'; ?>
 
 <div class="container">
 
@@ -57,10 +50,31 @@ require_once get_template_directory() . '/components/sidebar-ad.php';
             <?php the_content(); ?>
         </div>
 
-        <!-- INLINE AD — ACF-managed
-             MARKETING: WP Admin → Settings → Advertisement Settings → Article Inline Ad
-             Toggle on/off or swap sponsor content there without editing code. -->
-        <?php render_ad_slot( array( 'slot' => 'inline' ) ); ?>
+        <?php
+        /* =========================================================
+           INLINE AD
+           ─────────────────────────────────────────────────────────
+           Advanced Ads is now the primary ad source (placement:
+           'article_inline'). The ACF-managed slot is retained as a
+           fallback if the plugin is inactive or the placement is empty.
+
+           MARKETING: Advanced Ads › Placements › article_inline
+           ========================================================= */
+        $advanced_ad_inline = '';
+        if ( function_exists( 'the_ad_placement' ) ) {
+            ob_start();
+            the_ad_placement( 'article_inline' );
+            $advanced_ad_inline = ob_get_clean();
+        }
+        if ( ! empty( trim( $advanced_ad_inline ) ) ) {
+            ?>
+            <aside class="ad-slot ad-slot--inline" aria-label="Sponsored content">
+                <span class="ad-slot__label">Sponsored</span>
+                <?php echo $advanced_ad_inline; ?>
+            </aside>
+            <?php
+        }
+        ?>
 
     </article>
 
@@ -123,11 +137,7 @@ require_once get_template_directory() . '/components/sidebar-ad.php';
 
     <aside class="single-sidebar">
         <?php
-        /*
-         * SIDEBAR AD — ACF-managed
-         * MARKETING: WP Admin → Settings → Advertisement Settings → Article Sidebar Ad
-         * Toggle on/off or swap sponsor content there without editing code.
-         */
+        /* MARKETING: Advanced Ads › Placements › article_sidebar */
         render_sidebar_ad();
         ?>
     </aside><!-- /single-sidebar -->

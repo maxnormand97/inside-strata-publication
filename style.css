@@ -2495,3 +2495,15 @@ a.page-numbers:focus-visible {
         columns: 1;
     }
 }
+
+
+/* =====================================================================
+   Advanced Ads — container normalisation
+   Prevents the plugin's auto-injected wrapper div from interrupting
+   the .ad-slot flex layout when content is served via a placement.
+   ===================================================================== */
+.ad-slot .advads-ad-container,
+.ad-slot .advads-ad-container > div {
+    display: contents;
+}
+}

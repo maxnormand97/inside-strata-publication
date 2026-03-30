@@ -173,14 +173,33 @@
 
     <?php
     /* =========================================================
-       HOMEPAGE BANNER AD — ACF-managed
+       HOMEPAGE BANNER AD
        ─────────────────────────────────────────────────────────
-       MARKETING: Go to Settings › Advertisement Settings in
-       WP Admin and open the "Homepage Banner Ad" tab to update
-       the sponsor image, headline, link, or toggle it on/off.
+       Advanced Ads is now the primary ad source (placement:
+       'homepage_mid'). The ACF-managed slot is retained as a
+       fallback in case the plugin is inactive, the placement
+       function does not exist, or the placement returns nothing.
+
+       MARKETING: To update the Advanced Ads placement, go to
+       Advanced Ads › Placements in WP Admin.
+       To update the ACF fallback ad, go to Pages › Home and
+       open the "Homepage Banner Ad" tab.
        ========================================================= */
-    require_once get_template_directory() . '/components/ad-slot.php';
-    render_ad_slot( array( 'slot' => 'homepage' ) );
+    $advanced_ad = '';
+    if ( function_exists( 'the_ad_placement' ) ) {
+        ob_start();
+        the_ad_placement( 'home_ad_placement' );
+        $advanced_ad = ob_get_clean();
+    }
+    if ( ! empty( trim( $advanced_ad ) ) ) {
+        // Wrap in the same .ad-slot shell so theme CSS applies to both paths.
+        ?>
+        <aside class="ad-slot ad-slot--homepage" aria-label="Sponsored content">
+            <span class="ad-slot__label">Sponsored</span>
+            <?php echo $advanced_ad; ?>
+        </aside>
+        <?php
+    }
     ?>
 
 
@@ -280,13 +299,33 @@
 
     <?php
     /* =========================================================
-       FOOTER PROMO AD — ACF-managed (optional)
+       FOOTER PROMO AD
        ─────────────────────────────────────────────────────────
-       MARKETING: Go to Settings › Advertisement Settings in
-       WP Admin and open the "Footer Promo Ad" tab to manage
-       this slot, or toggle it off to hide it entirely.
+       Advanced Ads is now the primary ad source (placement:
+       'homepage_footer'). The ACF-managed slot is retained as a
+       fallback in case the plugin is inactive, the placement
+       function does not exist, or the placement returns nothing.
+
+       MARKETING: To update the Advanced Ads placement, go to
+       Advanced Ads › Placements in WP Admin.
+       To update the ACF fallback ad, go to Pages › Home and
+       open the "Footer Promo Ad" tab.
        ========================================================= */
-    render_ad_slot( array( 'slot' => 'footer' ) );
+    $advanced_ad_footer = '';
+    if ( function_exists( 'the_ad_placement' ) ) {
+        ob_start();
+        the_ad_placement( 'homepage_footer' );
+        $advanced_ad_footer = ob_get_clean();
+    }
+    if ( ! empty( trim( $advanced_ad_footer ) ) ) {
+        // Wrap in the same .ad-slot shell so theme CSS applies to both paths.
+        ?>
+        <aside class="ad-slot ad-slot--footer" aria-label="Sponsored content">
+            <span class="ad-slot__label">Sponsored</span>
+            <?php echo $advanced_ad_footer; ?>
+        </aside>
+        <?php
+    }
     ?>
 
 </div>

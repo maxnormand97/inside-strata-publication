@@ -2,19 +2,28 @@
 /**
  * Sidebar Ad Component — The Strata Review
  *
- * Renders the sticky sidebar ad on single article pages.
- * This is a named wrapper around render_ad_slot() so templates
- * have a clear, readable call — and so the sidebar slot can be
- * styled independently via .ad-slot--sidebar in style.css.
- *
- * Marketing: WP Admin → Settings → Advertisement Settings → Article Sidebar Ad
+ * Renders the Advanced Ads sidebar placement on single article pages.
+ * Marketing: Advanced Ads › Placements › article_sidebar
  */
 
 if ( ! function_exists( 'render_sidebar_ad' ) ) :
 
 function render_sidebar_ad() {
-    require_once get_template_directory() . '/components/ad-slot.php';
-    render_ad_slot( array( 'slot' => 'sidebar' ) );
+    if ( ! function_exists( 'the_ad_placement' ) ) {
+        return;
+    }
+    ob_start();
+    the_ad_placement( 'article_sidebar' );
+    $advanced_ad_sidebar = ob_get_clean();
+    if ( empty( trim( $advanced_ad_sidebar ) ) ) {
+        return;
+    }
+    ?>
+    <aside class="ad-slot ad-slot--sidebar" aria-label="Sponsored content">
+        <span class="ad-slot__label">Sponsored</span>
+        <?php echo $advanced_ad_sidebar; ?>
+    </aside>
+    <?php
 }
 
 endif;

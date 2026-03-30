@@ -140,27 +140,4 @@ document.addEventListener('DOMContentLoaded', function () {
         startAutoplay();
     }());
 
-    /* ============================================
-       AD CLICK TRACKING
-       Fires a GA4 'ad_click' event via gtag() when
-       analytics is loaded, or logs to console for
-       local testing when gtag is not available.
-       ============================================ */
-    document.addEventListener('click', function (e) {
-        var link = e.target.closest('.js-ad-link');
-        if (!link) return;
-
-        var payload = {
-            ad_slot:        link.dataset.adSlot  || '',
-            ad_title:       link.dataset.adTitle || '',
-            ad_destination: link.dataset.adUrl   || link.href
-        };
-
-        if (typeof gtag === 'function') {
-            gtag('event', 'ad_click', payload);
-        } else {
-            console.log('[ad_click]', payload);
-        }
-    });
-
 });

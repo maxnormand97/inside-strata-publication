@@ -32,8 +32,6 @@
         $featured_post = $archive_posts[0];
         $grid_before   = array_slice( $archive_posts, 1, 3 ); // posts 2–4
         $grid_after    = array_slice( $archive_posts, 4 );    // posts 5+
-
-        require_once get_template_directory() . '/components/ad-slot.php';
     ?>
 
     <!-- ── Featured (lead) post ──────────────────────────────── -->
@@ -102,7 +100,32 @@
     <?php endif; ?>
 
     <!-- ── Footer promo ad — after first few posts ───────────── -->
-    <?php render_ad_slot( array( 'slot' => 'footer', 'class' => 'category-archive__ad' ) ); ?>
+    <?php
+    /* =========================================================
+       CATEGORY FOOTER AD
+       ─────────────────────────────────────────────────────────
+       Advanced Ads is now the primary ad source (placement:
+       'category_footer'). The ACF-managed slot is retained as a
+       fallback if the plugin is inactive or the placement is empty.
+
+       MARKETING: Advanced Ads › Placements › category_footer
+       ========================================================= */
+    $advanced_ad_cat_footer = '';
+    if ( function_exists( 'the_ad_placement' ) ) {
+        ob_start();
+        the_ad_placement( 'category_footer' );
+        $advanced_ad_cat_footer = ob_get_clean();
+    }
+    if ( ! empty( trim( $advanced_ad_cat_footer ) ) ) {
+        ?>
+        <aside class="ad-slot ad-slot--footer category-archive__ad" aria-label="Sponsored content">
+            <span class="ad-slot__label">Sponsored</span>
+            <?php echo $advanced_ad_cat_footer; ?>
+        </aside>
+        <?php
+
+    }
+    ?>
 
     <!-- ── Second grid segment (posts 5+) ────────────────────── -->
     <?php if ( ! empty( $grid_after ) ) : ?>
